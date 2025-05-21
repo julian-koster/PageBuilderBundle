@@ -1,0 +1,150 @@
+<div
+        {{ attributes.defaults(stimulus_controller('admin--page-builder-preview')) }}
+        data-action="
+            updateOverride@window->admin--page-builder-preview#updateOverride
+            replaceOverride@window->admin--page-builder-preview#replaceOverride
+        "
+        class="h-screen overflow-hidden"
+>
+    <div class="mx-auto flex w-full h-full items-start gap-x-8 px-4 py-10 sm:px-6 lg:px-8">
+        <aside class="sticky top-8 hidden w-44 shrink-0 lg:block h-full overflow-y-auto">
+            <div id="block-categories" class="w-full" data-accordion="collapse">
+
+                <div class="mb-4">
+                    <a href="{{ path('app_admin_page_builder_page_index') }}" class="rounded-sm bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back to admin menu</a>
+                </div>
+
+                <div class="mb-4">
+                    <a href="{{ path('app_admin_page_builder_preview', { id : page }) }}" class="rounded-sm bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Preview page</a>
+                </div>
+
+                {% set grouped = this.availableBlocks|group_by(block => block.category|first.name|default('Ongecategoriseerd')) %}
+
+                {% for category, blocks in grouped %}
+                    <h2 id="accordion-heading-{{ loop.index }}">
+                        <button type="button"
+                                class="flex items-center justify-between w-full px-4 py-2 font-medium text-left text-gray-700 border border-b-0 border-gray-200 rounded-t-md hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500"
+                                data-accordion-target="#accordion-body-{{ loop.index }}"
+                                aria-expanded="false"
+                                aria-controls="accordion-body-{{ loop.index }}">
+                            {{ category }}
+                            <svg data-accordion-icon class="w-4 h-4 rotate-0 shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                    </h2>
+                    <div id="accordion-body-{{ loop.index }}" class="hidden" aria-labelledby="accordion-heading-{{ loop.index }}">
+                        <div class="space-y-1 p-2 bg-white border border-gray-200">
+                            {% for block in blocks %}
+                                <div class="relative group">
+                                    <button
+                                            type="button"
+                                            data-action="live#action"
+                                            data-live-action-param="addBlock"
+                                            data-live-block-id-param="{{ block.id }}"
+                                            class="w-full truncate rounded border bg-white px-2 py-1 text-xs text-gray-700 shadow-sm hover:bg-gray-50"
+                                    >
+                                        {{ block.name }}
+                                    </button>
+
+                                    {% if block.screenshot %}
+                                        <div class="absolute left-full top-1/2 z-50 ml-2 hidden w-40 -translate-y-1/2 transform opacity-0 group-hover:block group-hover:opacity-100 transition duration-200 ease-in-out pointer-events-none">
+                                            <div class="rounded-lg border border-gray-300 bg-white p-1 shadow-md">
+                                                <img src="{{ path('app_private_file', { filename: block.screenshot }) }}"
+                                                     alt="Preview for {{ block.name }}"
+                                                     class="rounded-sm max-w-full h-auto">
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </aside>
+
+        <main class="flex-1 h-full overflow-y-auto" id="page-builder-live-preview">
+            {% for blockInstance in this.normalizedBlockOrder %}
+                {% if blockInstance.instanceId %}
+                    {% set instanceId = blockInstance.instanceId %}
+                    {% if blockInstance is not null %}
+                        {% set values = blockInstance.overrides ?? {} %}
+                        {% set schema = this.getBlockSchema(blockInstance) %}
+                        {% set settings = schema %}
+                        <button
+                                type="button"
+                                data-action="live#action live#$render"
+                                data-live-action-param="selectBlockInstance"
+                                data-live-instance-id-param="{{ instanceId }}"
+                                class="block w-full"
+                        >
+                            <div class="{% if this.selectedBlockInstanceId == instanceId %}ring-2 ring-indigo-500{% else %}ring-1 ring-gray-300{% endif %} my-1 mx-1 {{ this.getLayoutClasses(instanceId) }}">
+                                {% include '/page_builder/' ~ blockInstance.pageBuilderBlock.twigTemplatePath with { settings: settings, instanceId: instanceId } %}
+                            </div>
+                        </button>
+                    {% else %}
+                        <div class="text-sm text-red-500 italic">
+                            Blok met ID {{ entry.blockId }} niet gevonden.
+                            <button
+                                    type="button"
+                                    data-action="live#action"
+                                    data-live-action-param="removeBrokenBlock"
+                                    data-live-instance-id-param="{{ blockInstance.instanceId }}"
+                            >Verwijderen</button>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="text-sm text-red-500 italic">
+                        Ongeldig blok op positie {{ loop.index }}.
+                        <button
+                                type="button"
+                                data-action="live#action"
+                                data-live-action-param="removeBrokenBlock"
+                                data-live-instance-id-param="{{ blockInstance.instanceId }}"
+                        >Verwijderen</button>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="text-sm text-gray-400 italic">Nog geen blokken toegevoegd.</div>
+            {% endfor %}
+        </main>
+
+        <aside class="hidden w-96 shrink-0 xl:block h-full overflow-y-auto"
+                data-live-id="{{ this.selectedBlockInstanceId }}"
+        >
+            <div class="overflow-y-auto max-h-full pr-2">
+                <div data-force-rerender="{{ this.selectedBlockInstanceId }}"></div>
+                {% if this.selectedBlockInstanceId is not null and this.blockIsOnPage(this.selectedBlockInstanceId) %}
+                    {% set instanceId = this.selectedBlockInstanceId %}
+
+                    <div class="text-sm">
+                        <button
+                                type="button"
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                data-action="live#action"
+                                data-live-action-param="deleteBlockFromPage"
+                                data-live-instance-id-param="{{ instanceId }}"
+                        >{% trans from 'admin_page_builder' %}Blok verwijderen{% endtrans %}</button>
+                    </div>
+
+                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+
+                    {% include '/page_builder/ui/preview/_block_layout_config.html.twig' with { 'instanceId' : instanceId } %}
+
+                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+
+                    {% set schema = this.blockSchema %}
+                    {% for config in schema %}
+
+                        {% set value = this.getBlockOverrides(instanceId, config["key"], config["type"]) %}
+
+                        {{ pb_block_render_inputs(config["key"], config, value, instanceId)|raw }}
+
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </aside>
+    </div>
+</div>

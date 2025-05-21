@@ -1,0 +1,45 @@
+<div class="mb-4" data-controller="admin--page-builder-preview-link" data-admin--page-builder-preview-link-context-value="{{ context|json_encode }}">
+
+    <div class="space-y-2 text-sm text-gray-700">
+        <label for="linkType" class="block text-xs font-semibold">Link type</label>
+        <select name="linkType"
+                data-action="change->admin--page-builder-preview-link#switchType"
+                data-admin--page-builder-preview-link-target="type"
+                class="w-full rounded border px-2 py-1 text-xs">
+            <option value="">Select an option...</option>
+            <option value="path">Internal route</option>
+            <option value="url" selected>URL</option>
+            <option value="email">Email</option>
+        </select>
+
+        <input type="text" name="pathValue"
+               data-type="path"
+               value="{{ context.context.activeValue|default(null) }}"
+               data-key="{{ config.label }}"
+               data-admin--page-builder-preview-link-target="path"
+               data-action="change->admin--page-builder-preview-link#updateLink"
+               data-instance-id="{{ instanceId }}"
+               placeholder="app_homepage"
+               class="w-full rounded border px-2 py-1 text-xs hidden" />
+
+        <input type="url" name="urlValue"
+               data-type="url"
+               value="{{ context.context.activeValue|default(null) }}"
+               data-key="{{ config.label }}"
+               data-admin--page-builder-preview-link-target="url"
+               data-action="change->admin--page-builder-preview-link#updateLink"
+               data-instance-id="{{ instanceId }}"
+               placeholder="https://example.com"
+               class="w-full rounded border px-2 py-1 text-xs hidden" />
+
+        <input type="email" name="emailValue"
+               data-type="email"
+               value="{{ context.context.activeValue|default(null) }}"
+               data-key="{{ config.label }}"
+               data-admin--page-builder-preview-link-target="email"
+               data-action="change->admin--page-builder-preview-link#updateLink"
+               data-instance-id="{{ instanceId }}"
+               placeholder="info@example.com"
+               class="w-full rounded border px-2 py-1 text-xs hidden" />
+    </div>
+</div>

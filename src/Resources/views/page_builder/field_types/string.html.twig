@@ -1,0 +1,19 @@
+<div class="mb-4">
+    <label class="block text-sm font-medium text-gray-700">
+        {{ config.label }}
+    </label>
+
+    {% if config.type in ['string','url'] %}
+        <input
+                data-live-id="{{ instanceId }}"
+                type="text"
+                name="{{ key }}"
+                value="{{ value.get("value")|default(config.fallback.value|default('')) }}"
+                class="form-input mt-1 block w-full"
+                data-action="change->admin--page-builder-preview#updateOverride"
+                data-key="{{ key }}"
+                data-type="{{ config.type }}"
+                data-instance-id="{{ instanceId }}"
+        />
+    {% endif %}
+</div>

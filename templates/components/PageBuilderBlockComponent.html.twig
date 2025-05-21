@@ -1,0 +1,16 @@
+<div{{ attributes.defaults(stimulus_controller('admin--json-editor')) }}>
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.category) }}
+        <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="text-indigo-600 hover:text-indigo-900 mb-4 -mt-2 text-sm" type="button">
+            {% trans from 'admin_page_builder' %}Create a new category{% endtrans %}
+        </button>
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="block_screenshot">{% trans from 'admin_page_builder' %}Upload block screenshot{% endtrans %}</label>
+        <input name="block_screenshot" class="mb-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="block_screenshot_id" type="file">
+        <button type="button" data-action="live#action" data-live-action-param="files|upload" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">{% trans from 'admin_page_builder' %}Upload screenshot{% endtrans %}</button>
+
+        {{ form_rest(form) }}
+    {{ form_end(form) }}
+    <twig:Admin:PageBuilder:PageBuilderBlockCategoryComponent />
+</div>

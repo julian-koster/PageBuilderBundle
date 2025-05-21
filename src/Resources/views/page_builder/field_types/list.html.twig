@@ -1,0 +1,34 @@
+<div class="mb-4">
+    {% set items = values[key]|default(config.fallback|default([])) %}
+
+    <div class="space-y-2 mb-4">
+        {% for item in items %}
+            <label class="block text-sm font-medium text-gray-700">
+                {{ config.label }} {{ loop.index }}
+            </label>
+
+            {% for itemKey, itemConfig in config.itemSchema %}
+                <input
+                        type="text"
+                        data-type="list"
+                        class="form-input block w-full"
+                        name="{{ key }}[{{ loop.parent.loop.index0 }}][{{ itemKey }}]"
+                        value="{{ item[itemKey]|default('') }}"
+                        data-action="change->admin--page-builder-preview#updateNestedOverride"
+                        data-key="{{ key }}"
+                        data-instance-id="{{ instanceId }}"
+                        data-item-index="{{ loop.parent.loop.index0 }}"
+                        data-item-key="{{ itemKey }}"
+                />
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <button
+            type="button"
+            class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            data-action="admin--page-builder-preview#addListItem"
+            data-key="{{ key }}"
+
+    >+ Add item</button>
+</div>

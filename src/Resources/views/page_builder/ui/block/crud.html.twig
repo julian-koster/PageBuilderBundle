@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain('admin_page_builder') %}
+
+{% block meta %}<title>{% trans %}Admin / Page Builder Block Editor{% endtrans %}</title>{% endblock %}
+
+{% block body %}
+    {{ include('ui/_nav.html.twig', { error : false }) }}
+    <div class="mx-auto max-w-full pt-16 lg:flex lg:gap-x-16 lg:px-8">
+
+        {{ include('ui/_side_menu.html.twig') }}
+
+        <main class="px-4 py-16 sm:px-6 lg:flex-auto lg:px-0 lg:py-20">
+            <div class="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
+                <div class="border-b border-gray-200 pb-5 sm:flex sm:items-center sm:justify-between">
+                    <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">{% trans %}Add or edit page builder blocks.{% endtrans %}</h3>
+                </div>
+                <div class="py-4">
+                    <twig:Admin:PageBuilder:PageBuilderBlockComponent pageBuilderBlock="{{ block }}" />
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

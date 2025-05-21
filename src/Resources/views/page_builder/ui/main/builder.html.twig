@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain('admin_page_builder') %}
+
+{% block meta %}<title>{% trans %}Admin / Page Builder{% endtrans %}</title>{% endblock %}
+
+{% block body %}
+    <div class="h-screen overflow-hidden">
+        <main class="h-full">
+            <twig:MainBuilderComponent page="{{ page }}"/>
+        </main>
+    </div>
+{% endblock %}

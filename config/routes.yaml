@@ -1,0 +1,4 @@
+page_builder_bundle:
+  resource: ../src/Controller/
+  type: attribute
+  prefix: /pb-admin

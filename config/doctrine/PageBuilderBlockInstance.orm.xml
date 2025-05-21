@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://doctrine-project.org/schemas/orm/doctrine-mapping
+        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+            name="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockInstance"
+            table="page_builder_block_instance">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="instanceId" type="string" length="255" column="instance_id"/>
+        <field name="position" type="integer" nullable="true"/>
+        <field name="layoutConfig" type="array" nullable="true"/>
+
+        <many-to-one
+                field="pageBuilderPage"
+                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderPage"
+                inversed-by="blocks">
+            <join-column name="page_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <many-to-one
+                field="pageBuilderBlock"
+                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlock">
+            <join-column name="block_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+        <one-to-many
+                field="overrides"
+                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockOverrides"
+                mapped-by="blockInstance"
+                cascade="persist,remove"/>
+    </entity>
+</doctrine-mapping>

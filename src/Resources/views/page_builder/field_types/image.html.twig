@@ -1,0 +1,53 @@
+<div class="mb-4" data-controller="admin--page-builder-file">
+    <label class="block text-sm font-medium text-gray-700">
+        {{ config.label }}
+    </label>
+
+    {% if config.type == 'image' %}
+        <div><p class="font-bold">Upload a file or enter a URL.</p></div>
+
+        <label class="block text-sm font-medium text-gray-700">
+            Upload an image
+        </label>
+        <input
+                type="file"
+                name="fileValue"
+                class="form-input mt-1 block w-full"
+                data-action="change->admin--page-builder-file#uploadFile"
+                data-url="{{ absolute_url(path('app_admin_page_builder_upload_image')) }}"
+                data-type="imgSrc"
+                data-instance-id="{{ instanceId }}"
+                data-key="{{ config.label }}"
+                data-max-files="1"
+                accept="image/*"
+                data-admin--page-builder-file-target="uploadField"
+        />
+
+{#        <label class="block text-sm font-medium text-gray-700">#}
+{#            Or enter a url#}
+{#        </label>#}
+{#        <input#}
+{#                type="url"#}
+{#                name="urlValue"#}
+{#                value=""#}
+{#                class="form-input mt-1 block w-full"#}
+{#                data-action="change->admin--page-builder-preview#replaceOverride"#}
+{#                data-type="imgUrl"#}
+{#                data-instance-id="{{ instanceId }}"#}
+{#                data-key="{{ config.label }}"#}
+{#        />#}
+
+{#        <label class="block text-sm font-medium text-gray-700">#}
+{#            Image alt text#}
+{#        </label>#}
+{#        <input#}
+{#            type="text"#}
+{#            name="textValue"#}
+{#            class="form-input mt-1 block w-full"#}
+{#            data-action="change->admin--page-builder-preview#updateOverride"#}
+{#            data-type="string"#}
+{#            data-instance-id="{{ instanceId }}"#}
+{#            data-key="{{ config.label }}"#}
+{#        />#}
+    {% endif %}
+</div>

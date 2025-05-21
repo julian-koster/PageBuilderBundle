@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://doctrine-project.org/schemas/orm/doctrine-mapping
+        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+            name="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockOverrides"
+            table="page_builder_block_overrides">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="instanceId" type="string" length="255" nullable="false"/>
+        <field name="fieldKey" type="string" length="255" nullable="false"/>
+        <field name="fieldValue" type="text" nullable="false"/>
+        <field name="type" type="string" length="255" nullable="false"/>
+
+        <many-to-one
+                field="pageBuilderBlockInstance"
+                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockInstance"
+                inversed-by="overrideItems">
+            <join-column name="block_instance_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

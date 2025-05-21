@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://doctrine-project.org/schemas/orm/doctrine-mapping
+        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+            name="JulianKoster\PageBuilderBundle\Entity\PageBuilderPage"
+            table="page_builder_page">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="name" type="string" length="255" nullable="false"/>
+        <field name="locale" type="string" length="12" nullable="false"/>
+        <field name="title" type="string" length="255" nullable="false"/>
+
+        <one-to-many
+                field="blockInstance"
+                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockInstance"
+                mapped-by="page"
+                cascade="persist,remove"/>
+
+        <one-to-one
+                field="meta"
+                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderMeta"
+                cascade="persist,remove">
+            <join-column name="meta_id" referenced-column-name="id" nullable="false"/>
+        </one-to-one>
+    </entity>
+</doctrine-mapping>

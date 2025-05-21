@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block meta %}
+        <title>{{ page.title }}</title>
+{% endblock %}
+
+{% block body %}
+        {{ include('ui/_nav.html.twig', { error : false }) }}
+
+        <main class="isolate mt-12">
+                {% for block in blocks %}
+                        {{ block|raw }}
+                {% else %}
+                        <div class="text-gray-400 italic text-sm">No blocks yet...</div>
+                {% endfor %}
+        </main>
+
+        {{ include('ui/_footer.html.twig') }}
+{% endblock %}
