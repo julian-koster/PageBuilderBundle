@@ -2,7 +2,7 @@
 
 namespace JulianKoster\PageBuilderBundle\Service;
 
-use App\Enum\PageBuilderFieldTypes;
+use JulianKoster\PageBuilderBundle\Enum\PageBuilderFieldTypes;
 use JulianKoster\PageBuilderBundle\Dto\PageBuilderOverrideResult;
 
 readonly class PageBuilderService

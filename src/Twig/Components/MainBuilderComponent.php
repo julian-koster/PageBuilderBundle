@@ -114,6 +114,11 @@ final class MainBuilderComponent
     {
         $blocksOnPage = $this->builderPage->getBlockInstance();
 
+        if($blocksOnPage === null)
+        {
+            return null;
+        }
+
         foreach ($blocksOnPage as $block) {
             if($block->getInstanceId() === $this->selectedBlockInstanceId)
             {
@@ -123,26 +128,29 @@ final class MainBuilderComponent
         return null;
     }
 
+    public function getRenderableBlockInstances(): array
+    {
+        return array_filter(
+            $this->getNormalizedBlockOrder()->toArray(),
+            fn(PageBuilderBlockInstance $instance) =>
+                $instance->getPageBuilderBlock()?->getId() !== null
+                && $instance->getPageBuilderBlock()?->getTwigTemplatePath() !== null
+        );
+    }
+
     /**
      * @throws SyntaxError
      */
     public function getBlockSchema(?PageBuilderBlockInstance $blockInstance = null): array
     {
-        if($blockInstance === null)
-        {
-            $block = $this->getSelectedBlockEntry()->getPageBuilderBlock();
-        }
-        else
-        {
-            $block = $blockInstance->getPageBuilderBlock();
+        $block = $blockInstance?->getPageBuilderBlock() ?? $this->getSelectedBlockEntry()?->getPageBuilderBlock();
+
+        if (!$block || !$block->getId()) {
+            return [];
         }
 
-        if($this->getBlockDocumentSchema($block)) {
-            return $this->getBlockDocumentSchema($block);
-        }
-        else {
-            return $this->getBlockTagSchema($block);
-        }
+        return $this->getBlockDocumentSchema($block)
+            ?: $this->getBlockTagSchema($block);
     }
 
     public function getAvailableBlocks(): array
@@ -351,12 +359,12 @@ final class MainBuilderComponent
     /**
      * @throws SyntaxError
      */
-    public function getBlockTagSchema(PageBuilderBlock $block): array
+    public function getBlockTagSchema(?PageBuilderBlock $block = null): array
     {
         return $this->blockSchemaParser->parseTwigTags($block);
     }
 
-    public function getBlockDocumentSchema(PageBuilderBlock $block): array
+    public function getBlockDocumentSchema(?PageBuilderBlock $block = null): array
     {
         if ($block->getPhpClass() && class_exists($block->getPhpClass())) {
             return call_user_func([$block->getPhpClass(), 'getSchema']);

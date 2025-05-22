@@ -21,7 +21,8 @@
     "symfony/uid": "^7.2",
     "symfony/orm-pack": "^2.4",
     "symfony/form": "^7.2",
-    "symfony/validator": "^7.2"
+    "symfony/validator": "^7.2",
+    "symfony/expression-language": "^7.2"
   },
   "require-dev": {
     "symfony/var-dumper": "^7.2",

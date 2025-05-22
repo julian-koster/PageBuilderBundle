@@ -93,7 +93,7 @@ readonly class PageBuilderExtensionRuntime implements RuntimeExtensionInterface
      */
     public function renderBlockInputs(string $key, array $config, mixed $value, string $instanceId): string
     {
-        $template = "/page_builder/field_types/{$config['type']}.html.twig";
+        $template = "/field_types/{$config['type']}.html.twig";
         $fieldContext = $this->fieldContextBuilder->getFieldContext($key, $config["type"], $instanceId) ?? null;
 
         return $this->twig->render($template, [

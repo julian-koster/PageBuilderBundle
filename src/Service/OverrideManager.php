@@ -3,7 +3,7 @@
 namespace JulianKoster\PageBuilderBundle\Service;
 
 use JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockOverrides;
-use App\Enum\PageBuilderFieldTypes;
+use JulianKoster\PageBuilderBundle\Enum\PageBuilderFieldTypes;
 use JulianKoster\PageBuilderBundle\Repository\PageBuilderBlockOverridesRepository;
 use Psr\Log\LoggerInterface;
 

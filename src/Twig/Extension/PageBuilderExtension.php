@@ -2,7 +2,8 @@
 
 namespace JulianKoster\PageBuilderBundle\Twig\Extension;
 
-use Twig\Runtime\PageBuilderExtensionRuntime;
+use JulianKoster\PageBuilderBundle\Twig\Runtime\PageBuilderExtensionRuntime;
+use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class PageBuilderExtension extends AbstractExtension

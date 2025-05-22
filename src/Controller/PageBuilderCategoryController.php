@@ -18,7 +18,7 @@ class PageBuilderCategoryController extends AbstractController
     #[Route('/index', name: 'app_admin_page_builder_block_category_index', methods: ['GET'])]
     public function render_category_index(PageBuilderBlockCategoryRepository $repository): Response
     {
-        return $this->render('@PageBuilderBundle/page_builder/ui/category/index.html.twig', [
+        return $this->render('@PageBuilderBundle/ui/category/index.html.twig', [
             'categories' => $repository->findBy([], ["name" => "ASC"]),
         ]);
     }
@@ -60,7 +60,7 @@ class PageBuilderCategoryController extends AbstractController
             }
         }
 
-        return $this->render('@PageBuilderBundle/page_builder/ui/category/crud.html.twig', [
+        return $this->render('@PageBuilderBundle/ui/category/crud.html.twig', [
             'form' => $form,
             'category' => $category,
         ]);

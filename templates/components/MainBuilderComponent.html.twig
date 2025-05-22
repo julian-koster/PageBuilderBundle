@@ -81,7 +81,12 @@
                                 class="block w-full"
                         >
                             <div class="{% if this.selectedBlockInstanceId == instanceId %}ring-2 ring-indigo-500{% else %}ring-1 ring-gray-300{% endif %} my-1 mx-1 {{ this.getLayoutClasses(instanceId) }}">
-                                {% include '/page_builder/' ~ blockInstance.pageBuilderBlock.twigTemplatePath with { settings: settings, instanceId: instanceId } %}
+                                {% for blockInstance in this.renderableBlockInstances %}
+                                    {% include '@PageBuilderUserBlocks/' ~ blockInstance.pageBuilderBlock.twigTemplatePath with {
+                                        settings: settings,
+                                        instanceId: instanceId
+                                    } %}
+                                {% endfor %}
                             </div>
                         </button>
                     {% else %}
@@ -131,7 +136,7 @@
 
                     <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
 
-                    {% include '/page_builder/ui/preview/_block_layout_config.html.twig' with { 'instanceId' : instanceId } %}
+                    {% include '/ui/preview/_block_layout_config.html.twig' with { 'instanceId' : instanceId } %}
 
                     <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
 

@@ -42,14 +42,14 @@ class PageBuilderPreviewController extends AbstractController
                 continue;
             }
 
-            $html = $twig->render('/page_builder/' . $block->getTwigTemplatePath(), [
+            $html = $twig->render('/' . $block->getTwigTemplatePath(), [
                 'instanceId' => $instanceId,
             ]);
 
             $blocks[] = $html;
         }
 
-        return $this->render('@PageBuilderBundle/page_builder/ui/preview/preview.html.twig', [
+        return $this->render('@PageBuilderBundle/ui/preview/preview.html.twig', [
             'page' => $page,
             'blocks' => $blocks,
         ]);

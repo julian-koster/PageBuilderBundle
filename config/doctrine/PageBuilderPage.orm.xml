@@ -20,14 +20,14 @@
         <one-to-many
                 field="blockInstance"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockInstance"
-                mapped-by="page"
+                mapped-by="pageBuilderPage"
                 cascade="persist,remove"/>
 
         <one-to-one
                 field="meta"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderMeta"
                 cascade="persist,remove">
-            <join-column name="meta_id" referenced-column-name="id" nullable="false"/>
+            <join-column name="meta_id" referenced-column-name="id" nullable="true"/>
         </one-to-one>
     </entity>
 </doctrine-mapping>

@@ -3,17 +3,19 @@
 namespace JulianKoster\PageBuilderBundle\Service;
 
 use JulianKoster\PageBuilderBundle\Entity\PageBuilderBlock;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Twig\Error\SyntaxError;
 use Twig\Source;
 
-class BlockSchemaParser
+readonly class BlockSchemaParser
 {
-    private string $projectDir;
-
     public function __construct(
-        private BlockSchemaExtractor $blockSchemaExtractor,
+        private BlockSchemaExtractor  $blockSchemaExtractor,
+        private ContainerBagInterface $containerBag,
     )
     {
     }
@@ -23,16 +25,30 @@ class BlockSchemaParser
      * @param PageBuilderBlock $pageBuilderBlock
      * @return array an array with either: a simple string (type,value) a conditional with (type,test,true,false) or a raw block schema (type,raw).
      * @throws SyntaxError
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function parseTwigTags(PageBuilderBlock $pageBuilderBlock): array
     {
+        $templateDir = null;
+
+        if($this->containerBag->has('page_builder.template_dir')) {
+            $templateDir = $this->containerBag->get('page_builder.template_dir');
+        }
+        else {
+            throw new \Exception('Missing template dir parameter: page_builder.template_dir');
+        }
+
         $twigTemplate = $pageBuilderBlock->getTwigTemplatePath();
 
-        $filePath = $this->projectDir . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'page_builder' . DIRECTORY_SEPARATOR . $twigTemplate;
+        if (!$twigTemplate) {
+            throw new \InvalidArgumentException('No Twig template path set for block "' . $pageBuilderBlock->getName() . '".');
+        }
+
+        $filePath = $templateDir . DIRECTORY_SEPARATOR . $twigTemplate;
 
         $filesystem = new Filesystem();
-        if(!$filesystem->exists($filePath))
-        {
+        if(!$filesystem->exists($filePath)) {
             throw new FileNotFoundException($filePath);
         }
 

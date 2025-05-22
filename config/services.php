@@ -3,7 +3,8 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use JulianKoster\PageBuilderBundle\Controller\PageBuilderBlockController;
-use JulianKoster\PageBuilderBundle\Service\BlockSchemaParser;
+use JulianKoster\PageBuilderBundle\Twig\Extension\PageBuilderExtension;
+use JulianKoster\PageBuilderBundle\Twig\Runtime\PageBuilderExtensionRuntime;
 
 
 return static function (ContainerConfigurator $container) {
@@ -19,4 +20,11 @@ return static function (ContainerConfigurator $container) {
     $services
         ->set(PageBuilderBlockController::class)
         ->tag('controller.service_arguments');
+
+    $services
+        ->set(PageBuilderExtension::class)
+        ->tag('twig.extension');
+
+    $services->set(PageBuilderExtensionRuntime::class)
+        ->tag('twig.runtime');
 };

@@ -29,9 +29,9 @@
         </many-to-many>
 
         <one-to-many
-                field="blockInstance"
+                field="blockInstances"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockInstance"
-                mapped-by="blockInstance"
+                mapped-by="pageBuilderBlock"
                 cascade="persist,remove"/>
     </entity>
 </doctrine-mapping>

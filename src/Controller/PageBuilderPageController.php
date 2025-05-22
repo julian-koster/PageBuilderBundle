@@ -18,7 +18,7 @@ final class PageBuilderPageController extends AbstractController
     #[Route('/index', name: 'app_admin_page_builder_page_index', methods: ['GET'])]
     public function render_index(PageBuilderPageRepository $repository): Response
     {
-        return $this->render('@PageBuilderBundle/page_builder/ui/page/index.html.twig', [
+        return $this->render('@PageBuilderBundle/ui/page/index.html.twig', [
             'pages' => $repository->findAll(),
         ]);
     }
@@ -63,7 +63,7 @@ final class PageBuilderPageController extends AbstractController
             }
         }
 
-        return $this->render('@PageBuilderBundle/page_builder/ui/page/crud.html.twig', [
+        return $this->render('@PageBuilderBundle/ui/page/crud.html.twig', [
             'form' => $form,
             'page' => $page,
         ]);

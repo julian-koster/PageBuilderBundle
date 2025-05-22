@@ -21,13 +21,14 @@
                 field="pageBuilderPage"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderPage"
                 inversed-by="blocks">
-            <join-column name="page_id" referenced-column-name="id" nullable="false"/>
+            <join-column name="page_id" referenced-column-name="id" nullable="true"/>
         </many-to-one>
 
         <many-to-one
                 field="pageBuilderBlock"
-                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlock">
-            <join-column name="block_id" referenced-column-name="id" nullable="false"/>
+                target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlock"
+                inversed-by="blockInstances">
+            <join-column name="block_id" referenced-column-name="id" nullable="true"/>
         </many-to-one>
 
         <one-to-many

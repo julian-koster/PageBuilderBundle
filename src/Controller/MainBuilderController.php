@@ -13,7 +13,7 @@ final class MainBuilderController extends AbstractController
     #[Route('/main-view/{page}', name: 'app_admin_main_builder_view', methods: ['GET'])]
     public function index(PageBuilderPage $page): Response
     {
-        return $this->render('@PageBuilderBundle/page_builder/ui/main/builder.html.twig', [
+        return $this->render('@PageBuilderBundle/ui/main/builder.html.twig', [
             'page' => $page->getId(),
         ]);
     }

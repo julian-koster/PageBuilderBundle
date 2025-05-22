@@ -21,12 +21,12 @@ class PageBuilderBlock
 
     private ?string $phpClass = null;
 
-    private Collection $blockInstance;
+    private Collection $blockInstances;
 
     public function __construct()
     {
         $this->category = new ArrayCollection();
-        $this->blockInstance = new ArrayCollection();
+        $this->blockInstances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,13 +123,13 @@ class PageBuilderBlock
      */
     public function getBlockInstance(): Collection
     {
-        return $this->blockInstance;
+        return $this->blockInstances;
     }
 
     public function addBlockInstance(PageBuilderBlockInstance $blockInstance): static
     {
-        if (!$this->blockInstance->contains($blockInstance)) {
-            $this->blockInstance->add($blockInstance);
+        if (!$this->blockInstances->contains($blockInstance)) {
+            $this->blockInstances->add($blockInstance);
             $blockInstance->setPageBuilderBlock($this);
         }
 
@@ -138,7 +138,7 @@ class PageBuilderBlock
 
     public function removeBlockInstance(PageBuilderBlockInstance $blockInstance): static
     {
-        if ($this->blockInstance->removeElement($blockInstance)) {
+        if ($this->blockInstances->removeElement($blockInstance)) {
             // set the owning side to null (unless already changed)
             if ($blockInstance->getPageBuilderBlock() === $this) {
                 $blockInstance->setPageBuilderBlock(null);
