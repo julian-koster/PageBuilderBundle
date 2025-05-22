@@ -11,7 +11,7 @@
                 {% for block in blocks %}
                         {{ block|raw }}
                 {% else %}
-                        <div class="text-gray-400 italic text-sm">No blocks yet...</div>
+                        <div class="text-gray-400 italic text-sm">{% trans from 'page_builder_preview' %}No blocks yet...{% endtrans %}</div>
                 {% endfor %}
         </main>
 
