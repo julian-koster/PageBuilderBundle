@@ -1,0 +1,44 @@
+{
+  "name": "@juliankoster/pagebuilderbundle",
+  "description": "A pagebuilder for Symfony",
+  "license": "MIT",
+  "version": "0.0.1",
+  "keywords": [
+    "symfony pagebuilder"
+  ],
+  "repository": "https://github.com/julian-koster/PageBuilderBundle",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "symfony": {
+    "controllers": {
+      // data-controller name → config object
+      "page-builder-file": {
+        "main":     "dist/page_builder_file_controller.js",
+        "enabled":  true,
+        "fetch":    "lazy",
+        "webpackMode": "lazy"
+      },
+      "page-builder-preview": {
+        "main":     "dist/page_builder_preview_controller.js",
+        "enabled":  true,
+        "fetch":    "eager",
+        "webpackMode": "eager"
+      },
+      "page-builder-preview-link": {
+        "main":     "dist/page_builder_preview_link_controller.js",
+        "enabled":  true,
+        "fetch":    "lazy",
+        "webpackMode": "lazy"
+      }
+    },
+    "importmap": {
+      "@hotwired/stimulus": "^3.0.0"
+    }
+  },
+
+  "peerDependencies": {
+    "@hotwired/stimulus": "^3.0.0"
+  }
+}
