@@ -13,12 +13,11 @@
   ],
   "symfony": {
     "controllers": {
-      // data-controller name → config object
       "page-builder-file": {
         "main":     "dist/page_builder_file_controller.js",
         "enabled":  true,
-        "fetch":    "lazy",
-        "webpackMode": "lazy"
+        "fetch":    "eager",
+        "webpackMode": "eager"
       },
       "page-builder-preview": {
         "main":     "dist/page_builder_preview_controller.js",
@@ -29,8 +28,8 @@
       "page-builder-preview-link": {
         "main":     "dist/page_builder_preview_link_controller.js",
         "enabled":  true,
-        "fetch":    "lazy",
-        "webpackMode": "lazy"
+        "fetch":    "eager",
+        "webpackMode": "eager"
       }
     },
     "importmap": {

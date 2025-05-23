@@ -1,8 +1,8 @@
 <div
-        {{ attributes.defaults(stimulus_controller('admin--page-builder-preview')) }}
+        {{ attributes.defaults(stimulus_controller('@juliankoster/pagebuilderbundle/page-builder-preview')) }}
         data-action="
-            updateOverride@window->admin--page-builder-preview#updateOverride
-            replaceOverride@window->admin--page-builder-preview#replaceOverride
+            updateOverride@window->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride
+            replaceOverride@window->juliankoster--pagebuilderbundle--page-builder-preview#replaceOverride
         "
         class="h-screen overflow-hidden"
 >
@@ -112,7 +112,7 @@
                     </div>
                 {% endif %}
             {% else %}
-                <div class="text-sm text-gray-400 italic">Nog geen blokken toegevoegd.</div>
+                <div class="text-sm text-gray-400 italic">{% trans from 'builder_preview' %}No blocks added yet. Add blocks from the menu on the left.{% endtrans %}</div>
             {% endfor %}
         </main>
 

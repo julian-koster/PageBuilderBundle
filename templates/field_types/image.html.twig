@@ -1,4 +1,4 @@
-<div class="mb-4" data-controller="admin--page-builder-file">
+<div class="mb-4" {{ stimulus_controller('@juliankoster/pagebuilderbundle/page-builder-file') }}>
     <label class="block text-sm font-medium text-gray-700">
         {{ config.label }}
     </label>
@@ -13,14 +13,14 @@
                 type="file"
                 name="fileValue"
                 class="form-input mt-1 block w-full"
-                data-action="change->admin--page-builder-file#uploadFile"
+                data-action="change->juliankoster--pagebuilderbundle--page-builder-file#uploadFile"
                 data-url="{{ absolute_url(path('app_admin_page_builder_upload_image')) }}"
                 data-type="imgSrc"
                 data-instance-id="{{ instanceId }}"
                 data-key="{{ config.label }}"
                 data-max-files="1"
                 accept="image/*"
-                data-admin--page-builder-file-target="uploadField"
+                data-page-builder-file-target="uploadField"
         />
 
 {#        <label class="block text-sm font-medium text-gray-700">#}
@@ -31,7 +31,7 @@
 {#                name="urlValue"#}
 {#                value=""#}
 {#                class="form-input mt-1 block w-full"#}
-{#                data-action="change->admin--page-builder-preview#replaceOverride"#}
+{#                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#replaceOverride"#}
 {#                data-type="imgUrl"#}
 {#                data-instance-id="{{ instanceId }}"#}
 {#                data-key="{{ config.label }}"#}
@@ -44,7 +44,7 @@
 {#            type="text"#}
 {#            name="textValue"#}
 {#            class="form-input mt-1 block w-full"#}
-{#            data-action="change->admin--page-builder-preview#updateOverride"#}
+{#            data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride"#}
 {#            data-type="string"#}
 {#            data-instance-id="{{ instanceId }}"#}
 {#            data-key="{{ config.label }}"#}

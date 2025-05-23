@@ -75,7 +75,7 @@ class PageBuilderBundle extends AbstractBundle
         $builder->prependExtensionConfig('framework', [
             'asset_mapper' => [
                 'paths' => [
-                    __DIR__ . '/../assets' => '@juliankoster/pagebuilder',
+                    __DIR__ . '/../assets/dist' => '@juliankoster/pagebuilderbundle',
                 ],
             ],
         ]);
