@@ -3,9 +3,9 @@
 namespace JulianKoster\PageBuilderBundle\Twig\Components;
 
 use JulianKoster\PageBuilderBundle\Entity\PageBuilderBlock;
-use App\Form\PageBuilder\PageBuilderBlockType;
-use App\Service\Helpers\UploadHelper;
+use JulianKoster\PageBuilderBundle\Form\PageBuilderBlockType;
 use Doctrine\ORM\EntityManagerInterface;
+use JulianKoster\PageBuilderBundle\Helper\UploadHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +45,7 @@ final class PageBuilderBlockComponent extends AbstractController
     public function upload(Request $request, UploadHelper $uploadHelper): void
     {
         $file = $request->files->get('block_screenshot');
-        $fileName = $uploadHelper->processUpload($file, 'public_upload_dir');
+        $fileName = $uploadHelper->processUpload($file, 'page_builder.image_dir');
 
         $this->screenshot = $fileName;
     }

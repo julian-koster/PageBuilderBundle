@@ -23,12 +23,21 @@
         "main":     "dist/page_builder_preview_controller.js",
         "enabled":  true,
         "fetch":    "eager",
-        "webpackMode": "eager"
+        "webpackMode": "eager",
+        "autoimport": {
+          "dist/ts_dropdown_tailwind.css": true
+        }
       },
       "page-builder-preview-link": {
         "main":     "dist/page_builder_preview_link_controller.js",
         "enabled":  true,
         "fetch":    "eager",
+        "webpackMode": "eager"
+      },
+      "remove-classes-tomselect": {
+        "main": "dist/remove_classes_tomselect_controller.js",
+        "enabled": true,
+        "fetch": "eager",
         "webpackMode": "eager"
       }
     },

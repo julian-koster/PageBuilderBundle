@@ -34,7 +34,12 @@
         <one-to-many
                 field="overrides"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockOverrides"
-                mapped-by="blockInstance"
-                cascade="persist,remove"/>
+                mapped-by="pageBuilderBlockInstance"
+                >
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

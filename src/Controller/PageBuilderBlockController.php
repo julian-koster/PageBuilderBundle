@@ -4,9 +4,7 @@ namespace JulianKoster\PageBuilderBundle\Controller;
 
 use JulianKoster\PageBuilderBundle\Entity\PageBuilderBlock;
 use JulianKoster\PageBuilderBundle\Form\PageBuilderBlockType;
-use JulianKoster\PageBuilderBundle\Repository\PageBuilderBlockCategoryRepository;
 use JulianKoster\PageBuilderBundle\Repository\PageBuilderBlockRepository;
-use App\Service\Helpers\UploadHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +38,6 @@ final class PageBuilderBlockController extends AbstractController
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Request $request,
-        UploadHelper $uploadHelper,
         PageBuilderBlock $block = null
     ): Response
     {

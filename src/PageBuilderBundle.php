@@ -17,13 +17,27 @@ class PageBuilderBundle extends AbstractBundle
             ->children()
                 # The template_dir holds the user defined Twig templates
                 ->scalarNode('template_dir')
+                    ->info('All the custom block templates go here.')
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
                 # The image dir contains uploads from image fields inside the PageBuilder's preview mode.
                 ->scalarNode('image_dir')
+                    ->info('Contains images that the user uploads in the PageBuilder.')
                     ->isRequired()
                     ->cannotBeEmpty()
+                ->end()
+                # Rather than relying solely on URL's, I want users to have the options to pick routes (paths in Twig).
+                # E.g. a user has <a href="">Contact us!</a> field that needs a destination,
+                # If app_homepage is set in user_facing_routes, the user could select app_homepage.
+                ->arrayNode('user_facing_routes')
+                    ->info('Define the routes / paths that the user can use inside the PageBuilder when configuring a link.')
+                    ->arrayPrototype()
+                    ->children()
+                        ->scalarNode('route')->end()
+                        ->scalarNode('name')->end()
+                        ->scalarNode('description')->end()
+                    ->end()
                 ->end()
             ->end();
     }
@@ -34,7 +48,8 @@ class PageBuilderBundle extends AbstractBundle
 
         $container->parameters()
             ->set('page_builder.template_dir', $config['template_dir'])
-            ->set('page_builder.image_dir', $config['image_dir']);
+            ->set('page_builder.image_dir', $config['image_dir'])
+            ->set('page_builder.user_facing_routes', $config['user_facing_routes']);
 
         $container->import(__DIR__ . '/../config/services.php');
     }

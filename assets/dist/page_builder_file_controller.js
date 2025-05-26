@@ -6,10 +6,6 @@ export default class extends Controller {
         'uploadField',
     ];
 
-    connect() {
-        console.log('✅ PageBuilder controller loaded')
-    }
-
     async uploadFile(event)
     {
         const file = event.target.files;

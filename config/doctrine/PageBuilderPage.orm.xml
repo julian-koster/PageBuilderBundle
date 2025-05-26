@@ -21,13 +21,22 @@
                 field="blockInstance"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockInstance"
                 mapped-by="pageBuilderPage"
-                cascade="persist,remove"/>
+                >
+                <cascade>
+                    <cascade-remove/>
+                    <cascade-persist/>
+                </cascade>
+        </one-to-many>
 
         <one-to-one
                 field="meta"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderMeta"
-                cascade="persist,remove">
+                >
             <join-column name="meta_id" referenced-column-name="id" nullable="true"/>
+            <cascade>
+                <cascade-remove/>
+                <cascade-persist/>
+            </cascade>
         </one-to-one>
     </entity>
 </doctrine-mapping>

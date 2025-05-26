@@ -1,0 +1,349 @@
+.required:after {
+    content: " *";
+    color: red;
+}
+
+@layer utilities {
+    .dark\:text-gray-100 {
+        color: #f7fafc; /* Tailwind's gray-100 color */
+    }
+}
+
+.ts-wrapper.plugin-drag_drop.multi > .ts-control > div.ui-sortable-placeholder {
+    @apply visible border-none;
+}
+
+.ts-wrapper.plugin-drag_drop .ui-sortable-placeholder::after {
+    content: "!";
+    visibility: hidden;
+}
+
+.plugin-checkbox_options .option input {
+    margin-right: 0.5rem;
+}
+
+.plugin-clear_button .clear-button {
+    @apply opacity-0 absolute top-1/2 transform -translate-y-1/2 right-0 cursor-pointer;
+}
+
+.plugin-clear_button.single .clear-button {
+    @apply right-2;
+}
+
+.plugin-clear_button.focus.has-items .clear-button,
+.plugin-clear_button:hover.has-items .clear-button {
+    @apply opacity-100;
+}
+
+.ts-wrapper .dropdown-header {
+    @apply relative p-2.5 rounded-t;
+    border-bottom: 20px solid #d0d0d0;
+    background: #f8f8f8;
+}
+
+.ts-wrapper .dropdown-header-close {
+    @apply absolute right-2 top-1/2 opacity-40 -m-3 leading-5 text-xl;
+}
+
+.ts-wrapper .dropdown-header-close:hover {
+    @apply text-black;
+}
+
+.plugin-dropdown_input .dropdown-input {
+    @apply block p-2 shadow-none w-full bg-transparent;
+}
+
+.ts-wrapper.plugin-input_autogrow.has-items .ts-control > input {
+    @apply min-w-0;
+}
+
+.ts-wrapper.plugin-input_autogrow.has-items.focus .ts-control > input {
+    @apply flex;
+    min-width: 4px;
+}
+.ts-wrapper.plugin-input_autogrow.has-items.focus .ts-control > input::-webkit-input-placeholder {
+    @apply text-transparent;
+}
+.ts-wrapper.plugin-input_autogrow.has-items.focus .ts-control > input::-ms-input-placeholder {
+    @apply text-transparent;
+}
+.ts-wrapper.plugin-input_autogrow.has-items.focus .ts-control > input::placeholder {
+    @apply text-transparent;
+}
+
+.ts-dropdown.plugin-optgroup_columns .ts-dropdown-content {
+    @apply flex;
+}
+
+.ts-dropdown.plugin-optgroup_columns .optgroup {
+    @apply flex-grow border-t-0 border-r border-gray-100 basis-0 min-w-0;
+}
+
+.ts-dropdown.plugin-optgroup_columns .optgroup:last-child {
+    @apply border-r-0;
+}
+
+.ts-dropdown.plugin-optgroup_columns .optgroup:before {
+    @apply hidden;
+}
+
+.ts-dropdown.plugin-optgroup_columns .optgroup-header {
+    @apply border-t-0;
+}
+
+.ts-wrapper.plugin-remove_button .item {
+    @apply inline-flex items-center pr-0;
+}
+
+.ts-wrapper.plugin-remove_button .item .remove {
+    @apply text-inherit no-underline align-middle inline-block p-0 border-l border-gray-300 rounded-r-sm box-border ml-1.5;
+}
+
+.ts-wrapper.plugin-remove_button .item .remove:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.ts-wrapper.plugin-remove_button .item.active .remove {
+    border-left-color: #cacaca;
+}
+
+.ts-wrapper.plugin-remove_button.disabled .item .remove:hover {
+    background: none;
+}
+
+.ts-wrapper.plugin-remove_button.disabled .item .remove {
+    border-left-color: white;
+}
+
+.ts-wrapper.plugin-remove_button .remove-single {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 23px;
+}
+
+.ts-wrapper {
+    position: relative;
+}
+
+/* Base styles */
+.ts-dropdown,
+.ts-control,
+.ts-control input {
+    @apply text-gray-900 !important;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+/* Dark mode text override */
+.dark .ts-dropdown,
+.dark .ts-control,
+.dark .ts-control input {
+    color: #f7fafc !important;
+}
+
+/* Color for input - base */
+.ts-control,
+.ts-wrapper.single.input-active .ts-control {
+    @apply bg-gray-100;
+    cursor: text;
+}
+/* Color for input - dark mode */
+.dark .ts-control,
+.dark .ts-wrapper.single.input-active .ts-control {
+    background-color: #1a202c; /* Tailwind's gray-900 */
+}
+
+.ts-control {
+    @apply border border-gray-300 p-2.5 w-full overflow-hidden relative z-10 box-border shadow-none rounded-md flex flex-wrap;
+    /* Note: the dark border is handled below */
+}
+.ts-control {
+    /* Base border color */
+    border-color: #d1d5db; /* gray-300 */
+}
+.dark .ts-control {
+    /* Dark mode border override */
+    border-color: #4b5563; /* gray-600 */
+}
+
+.ts-wrapper.multi.has-items .ts-control {
+    padding: 6px 8px 3px;
+}
+
+/* Full control - base */
+.full .ts-control {
+    @apply bg-gray-100;
+}
+/* Full control - dark mode */
+.dark .full .ts-control {
+    background-color: #1a202c;
+    color: #f7fafc;
+}
+
+.disabled .ts-control,
+.disabled .ts-control * {
+    @apply cursor-pointer;
+}
+
+.focus .ts-control {
+    @apply shadow-none;
+}
+
+.ts-control > * {
+    @apply align-baseline inline-block;
+}
+
+.ts-wrapper.multi .ts-control > div {
+    @apply cursor-pointer m-0 mx-1 my-1 p-1 px-1.5 bg-gray-200 text-gray-800 border-0;
+}
+
+.ts-wrapper.multi .ts-control > div.active {
+    @apply bg-gray-300 text-gray-800 border-0;
+}
+
+.ts-wrapper.multi.disabled .ts-control > div,
+.ts-wrapper.multi.disabled .ts-control > div.active {
+    @apply text-gray-400 bg-white border-0;
+}
+
+.ts-control > input {
+    @apply inline-block p-0 min-h-0 max-w-full m-0 indent-0 border-0 bg-transparent flex-grow select-auto placeholder-gray-300;
+    min-width: 7rem;
+    max-height: none !important;
+    box-shadow: none !important;
+}
+/* For IE clear button */
+.ts-control > input::-ms-clear {
+    @apply hidden;
+}
+
+.ts-control > input:focus {
+    @apply outline-0;
+}
+
+.has-items .ts-control > input {
+    @apply m-0 mx-1;
+    margin: 0 4px !important;
+}
+
+.ts-control.rtl {
+    @apply text-right;
+}
+
+.ts-control.rtl.single .ts-control:after {
+    @apply absolute right-auto;
+    content: '';
+    left: 15px;
+}
+
+.ts-control.rtl .ts-control > input {
+    @apply m-0 mx-1;
+    margin: 0 4px 0 -2px !important;
+}
+
+.disabled .ts-control {
+    @apply opacity-50 bg-gray-100;
+}
+
+.input-hidden .ts-control > input {
+    @apply opacity-0 absolute;
+    left: -10000px;
+}
+
+/* .ts-dropdown base styles */
+.ts-dropdown {
+    @apply absolute top-full left-0 w-full z-50 mt-1 box-border rounded-lg overflow-hidden;
+    border: 1px solid #d1d5db; /* gray-300 */
+    background-color: #f8f8f8;
+    /* Additional background override */
+    background-color: #f3f4f6; /* gray-100 */
+}
+/* .ts-dropdown dark mode override */
+.dark .ts-dropdown {
+    border-color: #4b5563; /* dark:border-gray-600 */
+    background-color: #1a202c; /* dark:bg-gray-900 */
+}
+
+.ts-dropdown [data-selectable] {
+    @apply cursor-pointer overflow-hidden;
+}
+
+.ts-dropdown [data-selectable].option {
+    @apply opacity-100 cursor-pointer p-2.5;
+}
+.dark .ts-dropdown [data-selectable].option {
+    /* Override text color in dark mode */
+    color: #f7fafc;
+}
+
+.ts-dropdown .option,
+.ts-dropdown .optgroup-header,
+.ts-dropdown .no-results,
+.ts-dropdown .create {
+    padding: 5px 8px;
+}
+
+.ts-dropdown .option,
+.ts-dropdown [data-disabled],
+.ts-dropdown [data-disabled] [data-selectable].option {
+    cursor: inherit;
+    opacity: 0.5;
+}
+
+/* Hover and active states - base */
+.ts-dropdown .create:hover,
+.ts-dropdown .option:hover,
+.ts-dropdown .active {
+    @apply bg-gray-300;
+}
+/* Hover and active states - dark mode */
+.dark .ts-dropdown .create:hover,
+.dark .ts-dropdown .option:hover,
+.dark .ts-dropdown .active {
+    background-color: #2d3748; /* Tailwind's gray-800 */
+    color: #f7fafc; /* Tailwind's gray-100 */
+}
+
+.ts-dropdown .create:hover.create,
+.ts-dropdown .option:hover.create,
+.ts-dropdown .active.create {
+    color: #495c68;
+}
+
+.ts-dropdown .create {
+    color: rgba(48, 48, 48, 0.5);
+}
+
+.ts-dropdown .spinner {
+    @apply inline-block w-7 h-7 m-1 mx-2;
+}
+
+.ts-dropdown .spinner:after {
+    @apply block w-6 h-6 m-1 rounded-full border-4;
+    content: " ";
+    border-color: #FF7828 transparent #FF7828 transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ts-dropdown-content {
+    @apply overflow-y-auto overflow-x-hidden max-h-[200px];
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+.ts-hidden-accessible {
+    @apply border-0 h-0.5 overflow-hidden p-0 absolute w-0.5 whitespace-nowrap;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+}

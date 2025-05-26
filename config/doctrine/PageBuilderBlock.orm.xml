@@ -32,6 +32,11 @@
                 field="blockInstances"
                 target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderBlockInstance"
                 mapped-by="pageBuilderBlock"
-                cascade="persist,remove"/>
+                >
+                <cascade>
+                    <cascade-persist />
+                    <cascade-remove />
+                </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

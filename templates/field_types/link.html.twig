@@ -4,7 +4,7 @@
         <label for="linkType" class="block text-xs font-semibold">Link type</label>
         <select name="linkType"
                 data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#switchType"
-                data-page-builder-preview-link-target="type"
+                data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="type"
                 class="w-full rounded border px-2 py-1 text-xs">
             <option value="">Select an option...</option>
             <option value="path">Internal route</option>
@@ -12,21 +12,23 @@
             <option value="email">Email</option>
         </select>
 
-        <input type="text" name="pathValue"
-               data-type="path"
-               value="{{ context.context.activeValue|default(null) }}"
-               data-key="{{ config.label }}"
-               data-page-builder-preview-link-target="path"
-               data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
-               data-instance-id="{{ instanceId }}"
-               placeholder="app_homepage"
-               class="w-full rounded border px-2 py-1 text-xs hidden" />
+        <twig:LinkTypeRouteAutocompleteComponent label="{{ config.label }}" value="{{ context.context.activeValue|default(null) }}" instanceId="{{ instanceId }}"/>
+
+{#        <input type="text" name="pathValue"#}
+{#               data-type="path"#}
+{#               value="{{ context.context.activeValue|default(null) }}"#}
+{#               data-key="{{ config.label }}"#}
+{#               data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="path"#}
+{#               data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"#}
+{#               data-instance-id="{{ instanceId }}"#}
+{#               placeholder="app_homepage"#}
+{#               class="w-full rounded border px-2 py-1 text-xs hidden" />#}
 
         <input type="url" name="urlValue"
                data-type="url"
                value="{{ context.context.activeValue|default(null) }}"
                data-key="{{ config.label }}"
-               data-page-builder-preview-link-target="url"
+               data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="url"
                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="https://example.com"
@@ -36,7 +38,7 @@
                data-type="email"
                value="{{ context.context.activeValue|default(null) }}"
                data-key="{{ config.label }}"
-               data-page-builder-preview-link-target="email"
+               data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="email"
                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="info@example.com"

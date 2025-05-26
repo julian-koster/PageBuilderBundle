@@ -21,8 +21,6 @@ export default class extends Controller {
         const activeKey = this.contextValue.context?.activeKey;
         const activeValue = this.contextValue.context?.activeValue;
         const selectedType = activeKey?.match(/\[(.*?)\]/)?.[1];
-        console.log(selectedType);
-
 
         if (selectedType && this.typePossibilities().includes(selectedType)) {
             // Step 1: update visibility
