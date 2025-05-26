@@ -2,20 +2,27 @@
 
 namespace JulianKoster\PageBuilderBundle\Controller;
 
+use JulianKoster\PageBuilderBundle\Service\AdminRolesChecker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/upload')]
 final class PageBuilderUploadController extends AbstractController
 {
-    #[Route('/image', name: 'app_admin_page_builder_upload_image')]
-    public function upload_image_api(Request $request, SluggerInterface $slugger): JsonResponse
+    #[Route('/image', name: 'juliankoster_pagebuilder_mainbuilder_image_upload')]
+    public function upload_image_api(Request $request, SluggerInterface $slugger, AdminRolesChecker $adminRolesChecker): JsonResponse
     {
+        if(!$adminRolesChecker->checkRoles())
+        {
+            throw new AccessDeniedHttpException();
+        }
+
         /** @var UploadedFile $uploadedFile */
         $files = $request->files->get('files'); // array of UploadedFile
 

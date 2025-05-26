@@ -22,10 +22,13 @@ class LinkTypeRouteAutocompleteComponent extends AbstractController
     #[LiveProp]
     public ?string $instanceId = null;
 
-    public function __construct(private ParameterBagInterface $parameterBag)
+    public function __construct(private readonly ParameterBagInterface $parameterBag)
     {
     }
 
+    /**
+     * @return array
+     */
     public function getUserDefinedRoutes(): array
     {
         return $this->parameterBag->get('page_builder.user_facing_routes') ?? [];

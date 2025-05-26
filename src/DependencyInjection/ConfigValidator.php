@@ -25,5 +25,20 @@ class ConfigValidator
                 $resolvedImageDir
             ));
         }
+
+        $userFacingRoutes = $builder->getParameterBag()->resolveValue($config['user_facing_routes']);
+        if (!\is_array($userFacingRoutes)) {
+            throw new \InvalidArgumentException('PageBuilderBundle\'s config setting: user_facing_routes should be an array.');
+        }
+
+        $adminRoles = $builder->getParameterBag()->resolveValue($config['admin_roles']);
+        if (!\is_array($adminRoles)) {
+            throw new \InvalidArgumentException('PageBuilderBundle\'s config setting: admin_roles should be an array.');
+        }
+
+        $allowAnonymousPreviews = $builder->getParameterBag()->resolveValue($config['allow_anonymous_previews']);
+        if (!\is_bool($allowAnonymousPreviews)) {
+            throw new \InvalidArgumentException('PageBuilderBundle\'s config setting: allow_anonymous_previews should be a boolean.');
+        }
     }
 }

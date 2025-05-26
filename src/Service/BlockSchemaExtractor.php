@@ -36,7 +36,7 @@ readonly class BlockSchemaExtractor
                 $type = 'string';
                 $fallback = null;
 
-                // Positional arg
+                # Positional arg
                 if ($args->hasNode(0)) {
                     $keyNode = $args->getNode(0);
                     if ($keyNode instanceof ConstantExpression) {
@@ -44,7 +44,7 @@ readonly class BlockSchemaExtractor
                     }
                 }
 
-                // Named args (Twig puts them as string keys)
+                # Named args (string keys)
                 if ($args->hasNode('type')) {
                     $typeNode = $args->getNode('type');
                     if ($typeNode instanceof ConstantExpression) {
@@ -55,9 +55,9 @@ readonly class BlockSchemaExtractor
                 if ($args->hasNode('fallback')) {
                     $fallbackWrapper = $args->getNode('fallback');
 
-                    // fallback: new ConditionalTernary(...) or ConstantExpression
+                    # fallback: new ConditionalTernary(...) or ConstantExpression
                     $fallbackNode = $fallbackWrapper instanceof Node && $fallbackWrapper->hasNode(1)
-                        ? $fallbackWrapper->getNode(1) // inside the pair fallback => node
+                        ? $fallbackWrapper->getNode(1) # inside the pair fallback => node
                         : $fallbackWrapper;
 
                     $fallback = $this->getStructuredFallback($fallbackNode);
@@ -94,7 +94,7 @@ readonly class BlockSchemaExtractor
             ];
         }
 
-        // condition ? true : false
+       # condition ? true : false
         if ($node instanceof ConditionalTernary) {
             return [
                 'type' => 'conditional',
@@ -104,7 +104,7 @@ readonly class BlockSchemaExtractor
             ];
         }
 
-        // Classic if/else in Twig
+        # Classic if/else in Twig
         if ($node instanceof \Twig\Node\Expression\ConditionalExpression) {
             return [
                 'type' => 'conditional',
@@ -114,7 +114,7 @@ readonly class BlockSchemaExtractor
             ];
         }
 
-        // Fallback to raw compiled expression
+        # Fallback to raw compiled expression
         return [
             'type' => 'expression',
             'value' => $this->twig->compile($node),
@@ -124,10 +124,10 @@ readonly class BlockSchemaExtractor
     private function extractReadableTest(string $compiled): string
     {
         if (preg_match('/\$context\["([^"]+)"\]/', $compiled, $m)) {
-            return $m[1]; // e.g., "isTrue"
+            return $m[1]; # e.g., "isTrue"
         }
 
-        return $compiled; // fallback to full PHP
+        return $compiled; # TODO: currently fallback to full PHP but I don't want that.
     }
 
     private function extractNodeValue(Node $node): string
@@ -138,7 +138,7 @@ readonly class BlockSchemaExtractor
 
         $compiled = $this->twig->compile($node);
 
-        // Optional: strip quotes if it's a quoted string
+        # Strip quotes if it's a quoted string
         if (preg_match('/^"(.*)"$/s', $compiled, $m)) {
             return $m[1];
         }

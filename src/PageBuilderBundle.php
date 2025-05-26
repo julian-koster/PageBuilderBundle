@@ -33,13 +33,27 @@ class PageBuilderBundle extends AbstractBundle
                 ->arrayNode('user_facing_routes')
                     ->info('Define the routes / paths that the user can use inside the PageBuilder when configuring a link.')
                     ->arrayPrototype()
-                    ->children()
-                        ->scalarNode('route')->end()
-                        ->scalarNode('name')->end()
-                        ->scalarNode('description')->end()
+                        ->children()
+                            ->scalarNode('route')->end()
+                            ->scalarNode('name')->end()
+                            ->scalarNode('description')->end()
+                        ->end()
                     ->end()
                 ->end()
-            ->end();
+                # Pretty straightforward, who can access the admin backend. Defined as an array ['ROLE_ADMIN','ROLE_WHATEVER'], etc.
+                ->arrayNode('admin_roles')
+                    ->info('Define the admin roles with access to the PageBuilder\'s backend.')
+                    ->scalarPrototype()->end()
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                ->end()
+                # Should non-authenticated users be able to see page previews?
+                ->booleanNode('allow_anonymous_previews')
+                    ->info('Allow anonymous (unauthenticated) users to view page previews. False by default, only authorized users can see page previews. If set to true, everyone can view page previews.')
+                    ->defaultFalse()
+                ->end()
+            ->end()
+        ->end();
     }
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
@@ -49,7 +63,9 @@ class PageBuilderBundle extends AbstractBundle
         $container->parameters()
             ->set('page_builder.template_dir', $config['template_dir'])
             ->set('page_builder.image_dir', $config['image_dir'])
-            ->set('page_builder.user_facing_routes', $config['user_facing_routes']);
+            ->set('page_builder.user_facing_routes', $config['user_facing_routes'])
+            ->set('page_builder.admin_roles', $config['admin_roles'])
+            ->set('page_builder.allow_anonymous_previews', $config['allow_anonymous_previews']);
 
         $container->import(__DIR__ . '/../config/services.php');
     }

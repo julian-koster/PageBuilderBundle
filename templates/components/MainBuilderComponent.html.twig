@@ -6,16 +6,68 @@
         "
         class="h-screen overflow-hidden"
 >
+    <div class="grid grid-cols-12 gap-4 border-b border-gray-200 bg-white pb-4 dark:border-gray-800 dark:bg-gray-900">
+        <div class="col-span-full mx-4 mt-4 ">
+            <div class="items-center justify-between sm:flex">
+        <h5 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white sm:mb-0">Add a new page</h5>
+        <div class="flex items-center space-x-4">
+            <button
+                    type="button"
+                    class="flex w-full items-center justify-center rounded-lg border border-red-700 px-3 py-2 text-sm text-red-700 hover:border-red-800 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 sm:w-auto"
+            >
+                <svg class="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                            fill-rule="evenodd"
+                            d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                            clip-rule="evenodd"
+                    />
+                </svg>
+                <span class="sm:hidden">Trash</span>
+                <span class="hidden sm:block">Move to trash</span>
+            </button>
+            <button
+                    type="button"
+                    id="schedulePostButton"
+                    data-modal-target="schedulePostModal"
+                    data-modal-toggle="schedulePostModal"
+                    class="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto"
+            >
+                <svg class="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                            fill-rule="evenodd"
+                            d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+                            clip-rule="evenodd"
+                    />
+                </svg>
+                Schedule
+            </button>
+            <button
+                    type="submit"
+                    class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto"
+            >
+                <svg class="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                            fill-rule="evenodd"
+                            d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
+                            clip-rule="evenodd"
+                    />
+                </svg>
+                Publish
+            </button>
+        </div>
+    </div>
+        </div>
+    </div>
     <div class="mx-auto flex w-full h-full items-start gap-x-8 px-4 py-10 sm:px-6 lg:px-8">
         <aside class="sticky top-8 hidden w-44 shrink-0 lg:block h-full overflow-y-auto">
             <div id="block-categories" class="w-full" data-accordion="collapse">
 
                 <div class="mb-4">
-                    <a href="{{ path('app_admin_page_builder_page_index') }}" class="rounded-sm bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back to admin menu</a>
+                    <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_page_index') }}" class="rounded-sm bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back to admin menu</a>
                 </div>
 
                 <div class="mb-4">
-                    <a href="{{ path('app_admin_page_builder_preview', { id : page }) }}" class="rounded-sm bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Preview page</a>
+                    <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_live_preview', { id : page }) }}" class="rounded-sm bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Preview page</a>
                 </div>
 
                 {% set grouped = this.availableBlocks|group_by(block => block.category|first.name|default('Ongecategoriseerd')) %}
@@ -50,7 +102,7 @@
                                     {% if block.screenshot %}
                                         <div class="absolute left-full top-1/2 z-50 ml-2 hidden w-40 -translate-y-1/2 transform opacity-0 group-hover:block group-hover:opacity-100 transition duration-200 ease-in-out pointer-events-none">
                                             <div class="rounded-lg border border-gray-300 bg-white p-1 shadow-md">
-                                                <img src="{{ path('app_private_file', { filename: block.screenshot }) }}"
+                                                <img src="{{ path('juliankoster_pagebuilder_mainbuilder_serve_private_file', { filename: block.screenshot }) }}"
                                                      alt="Preview for {{ block.name }}"
                                                      class="rounded-sm max-w-full h-auto">
                                             </div>

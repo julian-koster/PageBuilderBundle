@@ -64,7 +64,6 @@ class PageBuilderBlockInstance
     public function removeOverride(PageBuilderBlockOverrides $override): static
     {
         if ($this->overrides->removeElement($override)) {
-            // set the owning side to null (unless already changed)
             if ($override->getPageBuilderBlockInstance() === $this) {
                 $override->setPageBuilderBlockInstance(null);
             }

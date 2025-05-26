@@ -48,9 +48,4 @@ class UserFacingRoutesResolverTest extends TestCase
         $resolver = new UserFacingRoutesResolver($containerBag, $router, 'app_homepage');
         self::assertIsArray($resolver->getUserFacingRoutesArray());
     }
-
-    public function testUserFacingRoutesArrayContainsValidKeys()
-    {
-
-    }
 }
