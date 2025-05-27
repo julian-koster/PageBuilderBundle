@@ -16,6 +16,7 @@ use JulianKoster\PageBuilderBundle\Service\BlockSchemaParser;
 use JulianKoster\PageBuilderBundle\Service\KeySanitizer;
 use JulianKoster\PageBuilderBundle\Service\PageBuilderService;
 use Doctrine\ORM\EntityManagerInterface;
+use JulianKoster\PageBuilderBundle\Service\PageStatusService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Uid\Uuid;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -58,8 +59,16 @@ final class MainBuilderComponent
         private readonly BlockInstanceResolver               $blockInstanceResolver,
         private readonly KeySanitizer                        $keySanitizer,
         private readonly BlockSchemaParser                   $blockSchemaParser,
+        private readonly PageStatusService                   $pageStatusService,
     )
     {
+    }
+
+    #[LiveAction]
+    public function setStatus(#[LiveArg('status')] ?string $status): void
+    {
+        $this->builderPage = $this->pageRepository->find($this->page);
+        $this->pageStatusService->setStatus($this->builderPage, $status);
     }
 
     public function blockIsOnPage(string $instanceId): bool

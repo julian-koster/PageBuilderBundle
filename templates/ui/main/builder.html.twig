@@ -4,8 +4,8 @@
 {% block meta %}<title>{% trans %}Admin / Page Builder{% endtrans %}</title>{% endblock %}
 
 {% block body %}
-    <div class="h-screen overflow-hidden">
-        <main class="h-full">
+    <div class="h-screen flex flex-col overflow-hidden">
+        <main class="h-full bg-gray-900">
             <twig:MainBuilderComponent page="{{ page }}"/>
         </main>
     </div>

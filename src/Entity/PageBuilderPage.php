@@ -167,12 +167,15 @@ class PageBuilderPage
     {
         $allowedStatuses = $this->getAllowedStatusTypes();
 
-        if(in_array($status, $allowedStatuses)) {
-            $this->status = $status;
+        foreach($allowedStatuses as $allowedStatus)
+        {
+            if($status == $allowedStatus->value)
+            {
+                $this->status = $status;
+                return $this;
+            }
         }
-        else {
-            throw new \InvalidArgumentException('Invalid PageBuilderPage status provided. Allowed statuses are: ' . implode(', ', $allowedStatuses) . ', you provided: ' . $status);
-        }
+
         return $this;
     }
 }
