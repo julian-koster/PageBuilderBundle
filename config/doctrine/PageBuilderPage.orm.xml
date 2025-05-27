@@ -16,6 +16,7 @@
         <field name="name" type="string" length="255" nullable="false"/>
         <field name="locale" type="string" length="12" nullable="false"/>
         <field name="title" type="string" length="255" nullable="false"/>
+        <field name="status" type="string" length="25" nullable="false"/>
 
         <one-to-many
                 field="blockInstance"
@@ -38,5 +39,18 @@
                 <cascade-persist/>
             </cascade>
         </one-to-one>
+
+        <field name="childPage" type="boolean" nullable="true"/>
+
+        <many-to-many field="translations" target-entity="JulianKoster\PageBuilderBundle\Entity\PageBuilderPage">
+            <join-table name="page_translations">
+                <join-columns>
+                    <join-column name="page_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="related_page_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>

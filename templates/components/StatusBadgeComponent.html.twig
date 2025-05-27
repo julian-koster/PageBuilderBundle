@@ -1,0 +1,14 @@
+{% if status == "PUBLISHED" %}
+    {% set textColor = "text-green-800 dark:text-green-300" %}
+    {% set bg = "bg-green-100 dark:bg-green-900" %}
+{% elseif status == "DRAFT" %}
+    {% set textColor = "text-blue-600 dark:text-blue-300" %}
+    {% set bg = "bg-blue-100 dark:bg-blue-900" %}
+{% elseif status == "ARCHIVED" %}
+    {% set textColor = "text-yellow-700 dark:text-yellow-300" %}
+    {% set bg = "bg-yellow-100 dark:bg-yellow-900" %}
+{% elseif status== "DELETED" %}
+    {% set textColor = "text-red-800 dark:text-red-300" %}
+    {% set bg = "bg-red-100 dark:bg-red-900" %}
+{% endif %}
+<span class="{{ bg|default('bg-blue-100 dark:bg-blue-900') }} {{ textColor|default('text-blue-600 dark:text-blue-300') }} text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm">{{ status|sentenceCase }}</span>

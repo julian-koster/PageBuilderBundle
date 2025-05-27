@@ -4,6 +4,7 @@ namespace JulianKoster\PageBuilderBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use JulianKoster\PageBuilderBundle\Enum\PageBuilderPageStatus;
 
 class PageBuilderPage
 {
@@ -19,9 +20,26 @@ class PageBuilderPage
 
     private ?PageBuilderMeta $meta = null;
 
+    # A child page is a child of a parent page. E.g. the About Us page is originally written in English (the parent).
+    # Each child page should reference the parent rather than having a child of a child of a child. Just to keep things a bit more organized.
+    private ?bool $childPage = null;
+
+    /**
+     * @var Collection<int, PageBuilderPage>
+     */
+    private Collection $translations;
+
+    private ?string $status = null;
+
+    private function getAllowedStatusTypes(): array
+    {
+        return PageBuilderPageStatus::cases();
+    }
+
     public function __construct()
     {
         $this->blockInstance = new ArrayCollection();
+        $this->translations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,6 +118,61 @@ class PageBuilderPage
     {
         $this->meta = $meta;
 
+        return $this;
+    }
+
+    public function setChildPage(?bool $childPage): void
+    {
+        $this->childPage = $childPage;
+    }
+
+    public function getChildPage(): ?bool
+    {
+        return $this->childPage;
+    }
+
+    /**
+     * @return Collection<int,PageBuilderPage>
+     */
+    public function getTranslations(): Collection
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(PageBuilderPage $page): static
+    {
+        if (!$this->translations->contains($page)) {
+            $this->translations->add($page);
+            $page->addTranslation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(PageBuilderPage $page): static
+    {
+        if ($this->translations->removeElement($page)) {
+            $page->removeTranslation($this);
+        }
+
+        return $this;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $allowedStatuses = $this->getAllowedStatusTypes();
+
+        if(in_array($status, $allowedStatuses)) {
+            $this->status = $status;
+        }
+        else {
+            throw new \InvalidArgumentException('Invalid PageBuilderPage status provided. Allowed statuses are: ' . implode(', ', $allowedStatuses) . ', you provided: ' . $status);
+        }
         return $this;
     }
 }

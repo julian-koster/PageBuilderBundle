@@ -4,6 +4,7 @@ namespace JulianKoster\PageBuilderBundle\Twig\Extension;
 
 use JulianKoster\PageBuilderBundle\Twig\Runtime\PageBuilderExtensionRuntime;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class PageBuilderExtension extends AbstractExtension
@@ -15,6 +16,7 @@ class PageBuilderExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
             // new TwigFilter('filter_name', [PageBuilderExtensionRuntime::class, 'doSomething']),
+            new TwigFilter('sentenceCase', [PageBuilderExtensionRuntime::class, 'sentenceCase']),
         ];
     }
 

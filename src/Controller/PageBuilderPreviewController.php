@@ -30,7 +30,7 @@ class PageBuilderPreviewController extends AbstractController
         AdminRolesChecker          $adminRolesChecker,
     ): Response {
 
-        if($this->getParameter('page_builder.page_builder.allow_anonymous_previews')) {
+        if($this->getParameter('page_builder.allow_anonymous_previews')) {
             $this->denyAccessUnlessGranted('ANONYMOUS');
         }
         else {

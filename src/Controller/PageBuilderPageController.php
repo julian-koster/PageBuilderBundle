@@ -3,6 +3,7 @@
 namespace JulianKoster\PageBuilderBundle\Controller;
 
 use JulianKoster\PageBuilderBundle\Entity\PageBuilderPage;
+use JulianKoster\PageBuilderBundle\Enum\PageBuilderPageStatus;
 use JulianKoster\PageBuilderBundle\Form\PageBuilderPageType;
 use JulianKoster\PageBuilderBundle\Repository\PageBuilderPageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,7 +67,10 @@ final class PageBuilderPageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($operation == "other") {
+
+                /** @var PageBuilderPage $page */
                 $page = $form->getData();
+                $page->setStatus(PageBuilderPageStatus::DRAFT);
 
                 $entityManager->persist($page);
 

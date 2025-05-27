@@ -13,6 +13,12 @@
   ],
   "symfony": {
     "controllers": {
+      "dropdown": {
+        "main":     "dist/dropdown_controller.js",
+        "enabled":  true,
+        "fetch":    "eager",
+        "webpackMode": "eager"
+      },
       "page-builder-file": {
         "main":     "dist/page_builder_file_controller.js",
         "enabled":  true,

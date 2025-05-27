@@ -1,0 +1,17 @@
+<div {{ attributes }}>
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.locale) }}
+
+        {% if form.childPage is defined %}
+            {{ form_row(form.childPage) }}
+        {% endif %}
+
+        {% if form.translations is defined %}
+            {{ form_row(form.translations) }}
+        {% endif %}
+
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+</div>

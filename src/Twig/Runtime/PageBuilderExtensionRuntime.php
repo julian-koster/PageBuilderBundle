@@ -136,4 +136,9 @@ readonly class PageBuilderExtensionRuntime implements RuntimeExtensionInterface
             throw new \InvalidArgumentException('Fallback string is not valid UTF-8.');
         }
     }
+
+    public function sentenceCase(string $string): string
+    {
+        return ucfirst(mb_strtolower($string));
+    }
 }

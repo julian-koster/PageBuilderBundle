@@ -52,6 +52,11 @@ class PageBuilderBundle extends AbstractBundle
                     ->info('Allow anonymous (unauthenticated) users to view page previews. False by default, only authorized users can see page previews. If set to true, everyone can view page previews.')
                     ->defaultFalse()
                 ->end()
+                # Should non-authenticated users be able to see page previews?
+                ->booleanNode('use_parent_child_structure')
+                    ->info('Translations of a page are seen as "children" of the original lang "parent" page by default. If you don\'t need this structure because you don\'t have translated pages or simply like to use a different approach, set to false.')
+                    ->defaultTrue()
+                ->end()
             ->end()
         ->end();
     }
@@ -65,7 +70,8 @@ class PageBuilderBundle extends AbstractBundle
             ->set('page_builder.image_dir', $config['image_dir'])
             ->set('page_builder.user_facing_routes', $config['user_facing_routes'])
             ->set('page_builder.admin_roles', $config['admin_roles'])
-            ->set('page_builder.allow_anonymous_previews', $config['allow_anonymous_previews']);
+            ->set('page_builder.allow_anonymous_previews', $config['allow_anonymous_previews'])
+            ->set('page_builder.use_parent_child_structure', $config['use_parent_child_structure']);
 
         $container->import(__DIR__ . '/../config/services.php');
     }
