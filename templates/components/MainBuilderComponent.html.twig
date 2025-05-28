@@ -32,39 +32,39 @@
                                 class="hidden absolute right-0 mt-2 z-10 w-48 bg-gray-900 rounded divide-y shadow divide-gray-600 opacity-0"
                         >
                             <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_page_index') }}" class="flex items-center py-3 px-4 hover:bg-gray-600 text-sm font-medium text-white">Main menu</a>
-                            <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_page_crud', { operation : 'other' }) }}" class="flex items-center py-3 px-4 hover:bg-gray-50 dark:hover:bg-gray-600 text-sm font-medium text-gray-900 dark:text-white">New page</a>
-                            <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_block_crud', { operation : 'other' }) }}" class="flex items-center py-3 px-4 hover:bg-gray-50 dark:hover:bg-gray-600 text-sm font-medium text-gray-900 dark:text-white">New block</a>
+                            <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_page_crud', { operation : 'other' }) }}" class="flex items-center py-3 px-4 hover:bg-gray-600 text-sm font-medium text-white">New page</a>
+                            <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_block_crud', { operation : 'other' }) }}" class="flex items-center py-3 px-4 hover:bg-gray-600 text-sm font-medium text-white">New block</a>
                         </div>
                     </div>
-                    <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/></svg>
+                    <svg class="w-3 h-3 text-gray-400 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/></svg>
                     <div class="relative" {{ stimulus_controller('juliankoster--pagebuilderbundle--dropdown') }}>
                         <button
                                 type="button"
                                 data-action="click->juliankoster--pagebuilderbundle--dropdown#toggle"
-                                class="text-sm font-medium items-center p-2 pr-3 pl-4 text-gray-500 rounded-lg md:inline-flex hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                class="text-sm font-medium items-center p-2 pr-3 pl-4 text-gray-500 rounded-lg md:inline-flex text-gray-400 hover:text-white hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 focus:ring-gray-600"
                         >
                             {{ this.builderPage.title|default('New page') }}
                         </button>
                         <twig:StatusBadgeComponent status="{{ this.builderPage.status|default('DRAFT') }}"/>
-                        <div data-juliankoster--pagebuilderbundle--dropdown-target="menu" class="hidden absolute z-30 w-60 bg-gray-900 rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200">
+                        <div data-juliankoster--pagebuilderbundle--dropdown-target="menu" class="hidden absolute z-30 w-60 rounded divide-y shadow bg-gray-700 divide-gray-600">
+                            <ul class="p-3 space-y-1 text-sm text-gray-200">
                                 {% if this.builderPage.translations|length > 0 %}
                                     {% for translation in this.builderPage.translations %}
                                         <li>
-                                            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <div class="flex p-2 rounded hover:bg-gray-600">
                                                 <div class="ml-2 text-sm">
-                                                    <div class="font-medium text-gray-900 dark:text-gray-300">
+                                                    <div class="font-medium text-gray-300">
                                                         <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_main_view_index', { page : translation.id }) }}">{{ translation.locale }}</a>
-                                                        <p id="helper-radio-text-4" class="text-xs font-normal text-gray-500 dark:text-gray-300">{{ translation.title }}</p>
+                                                        <p id="helper-radio-text-4" class="text-xs font-normal text-gray-300">{{ translation.title }}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
                                     {% else %}
-                                        <p class="text-xs font-normal text-gray-500 dark:text-gray-300">No translations found.</p>
+                                        <p class="text-xs font-normal text-gray-300">No translations found.</p>
                                     {% endfor %}
                                 {% else %}
-                                    <p class="text-xs font-normal text-gray-500 dark:text-gray-300">No translations found.</p>
+                                    <p class="text-xs font-normal text-gray-300">No translations found.</p>
                                 {% endif %}
                             </ul>
                         </div>
@@ -78,7 +78,7 @@
                                     data-action="live#action live#$render"
                                     data-live-action-param="setStatus"
                                     data-live-status-param="{{ enum('JulianKoster\\PageBuilderBundle\\Enum\\PageBuilderPageStatus').DRAFT.value }}"
-                                    class="flex w-full items-center justify-center text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 sm:w-auto"
+                                    class="flex w-full items-center justify-center focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center border-gray-600 text-gray-400 hover:text-white hover:bg-gray-600 focus:ring-gray-800 sm:w-auto"
                             >
                                 <span class="sm:hidden">Draft</span>
                                 <span class="hidden sm:block">Unpublish</span>
@@ -89,7 +89,7 @@
                                 data-action="live#action live#$render"
                                 data-live-action-param="setStatus"
                                 data-live-status-param="{{ enum('JulianKoster\\PageBuilderBundle\\Enum\\PageBuilderPageStatus').DELETED.value }}"
-                                class="flex w-full items-center justify-center rounded-lg border border-red-700 px-3 py-2 text-sm text-red-700 hover:border-red-800 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 sm:w-auto"
+                                class="flex w-full items-center justify-center rounded-lg border border-red-700 px-3 py-2 text-sm focus:outline-none focus:ring-4 border-red-500 text-red-500 hover:bg-red-600 hover:text-white focus:ring-red-900 sm:w-auto"
                         >
                             <svg class="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -106,7 +106,7 @@
                                 data-action="live#action live#$render"
                                 data-live-action-param="setStatus"
                                 data-live-status-param="{{ enum('JulianKoster\\PageBuilderBundle\\enum\\PageBuilderPageStatus').PUBLISHED.value }}"
-                                class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:w-auto"
+                                class="flex w-full items-center justify-center rounded-lg px-3 py-2 text-sm font-medium focus:outline-none focus:ring-4 bg-primary-600 hover:bg-primary-700 focus:ring-primary-800 sm:w-auto"
                         >
                             <svg class="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -118,13 +118,19 @@
                             Publish
                         </button>
                     </div>
-                    <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_page_index') }}" class="py-2.5 px-4 sm:mr-2 text-xs font-medium text-white bg-gray-700 rounded-lg hover:bg-gray-900 focus:ring-4 focus:ring-primary-300 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-primary-800">Main menu</a>
-                    <button id="moreOptionsDropdownButton" type="button" data-dropdown-toggle="moreOptionsDropdown" class="py-2.5 px-4 justify-center text-xs font-medium text-primary-700 dark:text-primary-500 bg-gray-50 rounded-lg  hover:bg-primary-700 hover:text-white dark:hover:text-white dark:border-primary-500 focus:ring-4 focus:ring-primary-300 border border-primary-700 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 inline-flex items-center">More <svg class="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 16"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5m0 6 4 4 4-4"/></svg></button>
-                    <div class="hidden z-50 my-4 w-48 text-base list-none bg-gray-900 rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="moreOptionsDropdown">
-                        <ul class="py-1 text-gray-500 dark:text-gray-400" aria-labelledby="moreOptionsDropdownButton">
+                    <button id="moreOptionsDropdownButton" type="button" data-dropdown-toggle="moreOptionsDropdown" class="py-2.5 px-4 justify-center text-xs font-medium text-primary-500 bg-gray-50 rounded-lg hover:text-white border-primary-500 focus:ring-4 border border-primary-700 hover:bg-primary-700 focus:outline-none focus:ring-primary-800 inline-flex items-center">More <svg class="w-2.5 h-2.5 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 16"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5m0 6 4 4 4-4"/></svg></button>
+                    <div class="hidden z-50 my-4 w-48 text-base list-none rounded divide-y shadow bg-gray-700 divide-gray-600" id="moreOptionsDropdown">
+                        <ul class="py-1 text-gray-400" aria-labelledby="moreOptionsDropdownButton">
                             <li>
-                                <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_live_preview', { id : page }) }}" class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">
-                                    <svg class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_page_index') }}" class="flex items-center py-2 px-4 text-sm hover:bg-gray-600 text-gray-400 hover:text-white">
+                                    <svg class="mr-2 w-4 h-4 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                                    </svg> Main menu
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_live_preview', { id : page }) }}" class="flex items-center py-2 px-4 text-sm hover:bg-gray-600 text-gray-400 hover:text-white">
+                                    <svg class="mr-2 w-4 h-4 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/>
                                     </svg> Preview page
                                 </a>
@@ -135,12 +141,15 @@
             </div>
         </nav>
 
-        <nav id="toggleMobileMenu" class="hidden bg-gray-900 border-b border-gray-800 shadow-sm dark:bg-gray-900 lg:block dark:border-gray-800">
+        <nav id="toggleMobileMenu" class="hidden bg-gray-900 border-b border-gray-800 shadow-sm lg:block">
             <div class="px-0 lg:px-6">
                 <div class="flex items-center">
                     <ul class="flex flex-col mt-0 w-full text-sm font-medium lg:flex-row">
-                        <li class="block border-b dark:border-gray-700 lg:inline lg:border-b-0">
-                            <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_live_preview', { id : page }) }}" class="block py-3 px-4 border-b-2 text-primary-600 hover:text-primary-600 dark:text-primary-500 dark:border-primary-500 border-primary-600" aria-current="page">Preview page</a>
+                        <li class="block border-b border-gray-700 lg:inline lg:border-b-0">
+                            <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_page_index') }}" class="block py-3 px-4 hover:text-primary-600 text-primary-500" aria-current="page">Main menu</a>
+                        </li>
+                        <li class="block border-b border-gray-700 lg:inline lg:border-b-0">
+                            <a href="{{ path('juliankoster_pagebuilder_mainbuilder_render_live_preview', { id : page }) }}" class="block py-3 px-4 border-b-2 hover:text-primary-600 text-primary-500 border-primary-500" aria-current="page">Preview page</a>
                         </li>
                     </ul>
                 </div>
@@ -183,7 +192,7 @@
         </aside>
 
 
-        <main class="flex-1 h-full overflow-y-auto" id="page-builder-live-preview bg-gray-900  border-r border-gray-200 dark:border-gray-700">
+        <main class="flex-1 h-full overflow-y-auto" id="page-builder-live-preview bg-gray-900 border-r border-gray-700">
             {% for blockInstance in this.renderableBlockInstances %}
                 {% if blockInstance.instanceId %}
                     {% set instanceId = blockInstance.instanceId %}
@@ -232,7 +241,7 @@
             {% endfor %}
         </main>
 
-        <aside class="hidden w-96 shrink-0 xl:block h-full overflow-y-auto bg-gray-50 dark:bg-gray-900 px-4 py-6 shadow-inner"
+        <aside class="hidden w-96 shrink-0 xl:block h-full overflow-y-auto bg-gray-900 px-4 py-6 shadow-inner"
                 data-live-id="{{ this.selectedBlockInstanceId }}"
         >
             <div class="overflow-y-auto max-h-full pr-2">
@@ -243,18 +252,18 @@
                     <div class="text-sm">
                         <button
                                 type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                class="focus:outline-none text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-red-600 hover:bg-red-700 focus:ring-red-900"
                                 data-action="live#action"
                                 data-live-action-param="deleteBlockFromPage"
                                 data-live-instance-id-param="{{ instanceId }}"
                         >{% trans from 'admin_page_builder' %}Blok verwijderen{% endtrans %}</button>
                     </div>
 
-                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+                    <hr class="h-px my-8 border-0 bg-gray-700">
 
                     {% include '@PageBuilder/ui/preview/_block_layout_config.html.twig' with { 'instanceId' : instanceId } %}
 
-                    <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+                    <hr class="h-px my-8 border-0 bg-gray-700">
 
                     {% set schema = this.blockSchema %}
                     {% for config in schema %}

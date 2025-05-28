@@ -1,28 +1,27 @@
-<div class="mb-4" {{ stimulus_controller('@juliankoster/pagebuilderbundle/page-builder-preview-link') }} data-juliankoster--pagebuilderbundle--page-builder-preview-link-context-value="{{ context|json_encode }}">
+<div class="mb-4"
+        {{ stimulus_controller('@juliankoster/pagebuilderbundle/page-builder-preview-link') }}
+     data-juliankoster--pagebuilderbundle--page-builder-preview-link-context-value="{{ context|json_encode }}">
+    <div class="space-y-3 text-sm text-gray-300">
 
-    <div class="space-y-2 text-sm text-gray-700">
-        <label for="linkType" class="block text-xs font-semibold">Link type</label>
+        <label for="linkType" class="block text-xs font-medium text-gray-400">
+            Link type
+        </label>
+
         <select name="linkType"
+                id="linkType"
                 data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#switchType"
                 data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="type"
-                class="w-full rounded border px-2 py-1 text-xs">
+                class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 text-xs focus:ring-primary-500 focus:border-primary-500">
             <option value="">Select an option...</option>
             <option value="path">Internal route</option>
             <option value="url" selected>URL</option>
             <option value="email">Email</option>
         </select>
 
-        <twig:LinkTypeRouteAutocompleteComponent label="{{ config.label }}" value="{{ context.context.activeValue|default(null) }}" instanceId="{{ instanceId }}"/>
-
-{#        <input type="text" name="pathValue"#}
-{#               data-type="path"#}
-{#               value="{{ context.context.activeValue|default(null) }}"#}
-{#               data-key="{{ config.label }}"#}
-{#               data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="path"#}
-{#               data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"#}
-{#               data-instance-id="{{ instanceId }}"#}
-{#               placeholder="app_homepage"#}
-{#               class="w-full rounded border px-2 py-1 text-xs hidden" />#}
+        <twig:LinkTypeRouteAutocompleteComponent
+                label="{{ config.label }}"
+                value="{{ context.context.activeValue|default(null) }}"
+                instanceId="{{ instanceId }}" />
 
         <input type="url" name="urlValue"
                data-type="url"
@@ -32,7 +31,7 @@
                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="https://example.com"
-               class="w-full rounded border px-2 py-1 text-xs hidden" />
+               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500 hidden" />
 
         <input type="email" name="emailValue"
                data-type="email"
@@ -42,6 +41,6 @@
                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="info@example.com"
-               class="w-full rounded border px-2 py-1 text-xs hidden" />
+               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500 hidden" />
     </div>
 </div>

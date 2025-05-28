@@ -1,19 +1,18 @@
 <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700 mb-2">
+    <label class="block text-sm font-medium text-gray-300 mb-2">
         {{ config.label }}
     </label>
 
     {% set fallback = config.fallback ?? {} %}
 
-    <div class="space-y-2">
-
+    <div class="space-y-4">
         <div>
-            <label class="block text-xs text-gray-500 mb-1">Condition (Twig expression)</label>
+            <label class="block text-xs text-gray-400 mb-1">Condition (Twig expression)</label>
             <input
                     type="text"
                     name="{{ key }}[test]"
                     value="{{ value.value.test|default(fallback.test|default('')) }}"
-                    class="form-input block w-full"
+                    class="block w-full rounded-lg border border-gray-600 bg-gray-700 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride"
                     data-type="{{ config.type }}"
                     data-instance-id="{{ instanceId }}"
@@ -22,12 +21,12 @@
         </div>
 
         <div>
-            <label class="block text-xs text-gray-500 mb-1">Value if true</label>
+            <label class="block text-xs text-gray-400 mb-1">Value if true</label>
             <input
                     type="text"
                     name="{{ key }}[true]"
                     value="{{ value.value.true|default(fallback.true|default('')) }}"
-                    class="form-input block w-full"
+                    class="block w-full rounded-lg border border-gray-600 bg-gray-700 text-sm text-white placeholder-gray-400 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
                     data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride"
                     data-type="{{ config.type }}"
                     data-instance-id="{{ instanceId }}"
@@ -36,18 +35,17 @@
         </div>
 
         <div>
-            <label class="block text-xs text-gray-500 mb-1">Value if false</label>
+            <label class="block text-xs text-gray-400 mb-1">Value if false</label>
             <input
                     type="text"
                     name="{{ key }}[false]"
                     value="{{ value.value.false|default(fallback.false|default('')) }}"
-                    class="form-input block w-full"
+                    class="block w-full rounded-lg border border-gray-600 bg-gray-700 text-sm text-white placeholder-gray-400 focus:border-red-500 focus:ring-red-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-red-500 dark:focus:ring-red-500"
                     data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride"
                     data-type="{{ config.type }}"
                     data-instance-id="{{ instanceId }}"
                     data-key="{{ key }}[false]"
             />
         </div>
-
     </div>
 </div>

@@ -1,18 +1,24 @@
 <div class="mb-4" {{ stimulus_controller('@juliankoster/pagebuilderbundle/page-builder-file') }}>
-    <label class="block text-sm font-medium text-gray-700">
+    <label class="block text-sm font-medium text-gray-300 mb-2">
         {{ config.label }}
     </label>
 
     {% if config.type == 'image' %}
-        <div><p class="font-bold">Upload a file or enter a URL.</p></div>
+        <div><p class="font-semibold text-gray-400 mb-3 text-sm">Upload a file or enter a URL.</p></div>
 
-        <label class="block text-sm font-medium text-gray-700">
+        <label class="block text-xs text-gray-400 mb-1">
             Upload an image
         </label>
         <input
                 type="file"
                 name="fileValue"
-                class="form-input mt-1 block w-full"
+                class="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4
+                   file:rounded-lg file:border-0
+                   file:text-sm file:font-semibold
+                   file:bg-gray-600 file:text-white
+                   hover:file:bg-gray-500
+                   dark:file:bg-gray-600 dark:file:text-white dark:hover:file:bg-gray-500
+                   bg-gray-800 border border-gray-700 rounded-lg"
                 data-action="change->juliankoster--pagebuilderbundle--page-builder-file#uploadFile"
                 data-url="{{ absolute_url(path('juliankoster_pagebuilder_mainbuilder_image_upload')) }}"
                 data-type="imgSrc"
@@ -22,32 +28,5 @@
                 accept="image/*"
                 data-juliankoster--pagebuilderbundle--page-builder-file-target="uploadField"
         />
-
-{#        <label class="block text-sm font-medium text-gray-700">#}
-{#            Or enter a url#}
-{#        </label>#}
-{#        <input#}
-{#                type="url"#}
-{#                name="urlValue"#}
-{#                value=""#}
-{#                class="form-input mt-1 block w-full"#}
-{#                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#replaceOverride"#}
-{#                data-type="imgUrl"#}
-{#                data-instance-id="{{ instanceId }}"#}
-{#                data-key="{{ config.label }}"#}
-{#        />#}
-
-{#        <label class="block text-sm font-medium text-gray-700">#}
-{#            Image alt text#}
-{#        </label>#}
-{#        <input#}
-{#            type="text"#}
-{#            name="textValue"#}
-{#            class="form-input mt-1 block w-full"#}
-{#            data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride"#}
-{#            data-type="string"#}
-{#            data-instance-id="{{ instanceId }}"#}
-{#            data-key="{{ config.label }}"#}
-{#        />#}
     {% endif %}
 </div>

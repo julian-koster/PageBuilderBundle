@@ -1,5 +1,5 @@
 <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700">
+    <label class="block text-sm font-medium text-gray-300 mb-1">
         {{ config.label }}
     </label>
 
@@ -9,7 +9,7 @@
                 type="text"
                 name="{{ key }}"
                 value="{{ value.get("value")|default(config.fallback.value|default('')) }}"
-                class="form-input mt-1 block w-full"
+                class="block w-full text-sm text-gray-300 bg-gray-900 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride"
                 data-key="{{ key }}"
                 data-type="{{ config.type }}"
