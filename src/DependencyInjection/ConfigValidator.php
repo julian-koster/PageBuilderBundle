@@ -2,12 +2,12 @@
 
 namespace JulianKoster\PageBuilderBundle\DependencyInjection;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Log\Logger;
 
 readonly class ConfigValidator
 {
-    static function validate(array $config, ContainerBuilder $builder, LoggerInterface $logger): void
+    static function validate(array $config, ContainerBuilder $builder, Logger $logger): void
     {
         $resolvedTemplateDir = $builder->getParameterBag()->resolveValue($config['template_dir']);
 
