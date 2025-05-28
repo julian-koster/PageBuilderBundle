@@ -9,12 +9,10 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\AssetMapper\AssetMapperInterface;
+use Symfony\Component\HttpKernel\Log\Logger;
 
 class PageBuilderBundle extends AbstractBundle
 {
-    public function __construct(private readonly LoggerInterface $logger)
-    {
-    }
 
     public function configure(DefinitionConfigurator $definition): void
     {
@@ -68,7 +66,8 @@ class PageBuilderBundle extends AbstractBundle
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        ConfigValidator::validate($config, $builder, $this->logger);
+        $logger = new Logger();
+        ConfigValidator::validate($config, $builder, $logger);
 
         $container->parameters()
             ->set('page_builder.template_dir', $config['template_dir'])
