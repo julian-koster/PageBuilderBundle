@@ -3,6 +3,7 @@
 namespace JulianKoster\PageBuilderBundle;
 
 use JulianKoster\PageBuilderBundle\DependencyInjection\ConfigValidator;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -11,7 +12,7 @@ use Symfony\Component\AssetMapper\AssetMapperInterface;
 
 class PageBuilderBundle extends AbstractBundle
 {
-    public function __construct(private readonly ConfigValidator $configValidator)
+    public function __construct(private readonly LoggerInterface $logger)
     {
     }
 
@@ -67,7 +68,7 @@ class PageBuilderBundle extends AbstractBundle
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $this->configValidator->validate($config, $builder);
+        ConfigValidator::validate($config, $builder, $this->logger);
 
         $container->parameters()
             ->set('page_builder.template_dir', $config['template_dir'])

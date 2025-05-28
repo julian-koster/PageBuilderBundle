@@ -5,13 +5,9 @@ namespace JulianKoster\PageBuilderBundle\DependencyInjection;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class ConfigValidator
+readonly class ConfigValidator
 {
-    public function __construct(private readonly LoggerInterface $logger)
-    {
-    }
-
-    public function validate(array $config, ContainerBuilder $builder): void
+    static function validate(array $config, ContainerBuilder $builder, LoggerInterface $logger): void
     {
         $resolvedTemplateDir = $builder->getParameterBag()->resolveValue($config['template_dir']);
 
@@ -26,7 +22,7 @@ class ConfigValidator
 
         # We're not going to throw an actual exception as it seems silly to halt the entire build process over an image upload dir.
         if (!\is_dir($resolvedImageDir)) {
-            $this->logger->warning(sprintf(
+            $logger->warning(sprintf(
                 'Invalid page_builder.image_dir "%s": directory does not exist. Did you forget to create the directory? If created, make sure it\'s path matches with the path configured under page_builder.image_dir in the PageBuilderBundle\'s configuration file.',
                 $resolvedImageDir
             ));
