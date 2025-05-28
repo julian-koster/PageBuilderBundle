@@ -25,7 +25,6 @@
     "symfony/expression-language": "^7.2",
     "symfony/asset-mapper": "^7.2",
     "symfony/ux-autocomplete": "^2.25",
-    "symfony/security": "^2.0",
     "symfony/security-bundle": "^7.2",
     "symfonycasts/dynamic-forms": "^0.1.3"
   },
