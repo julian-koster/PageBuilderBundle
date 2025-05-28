@@ -312,14 +312,26 @@ final class MainBuilderComponent
 
     #[LiveAction]
     public function updateNestedOverride(
-        #[LiveArg] int $index,
-        #[LiveArg] string $key,
-        #[LiveArg] int $itemIndex,
-        #[LiveArg] string $itemKey,
-        #[LiveArg] string $value
+        #[LiveArg('index')] int $index,
+        #[LiveArg('key')] string $key,
+        #[LiveArg('type')] string $type,
+        #[LiveArg('itemIndex')] int $itemIndex,
+        #[LiveArg('itemKey')] string $itemKey,
+        #[LiveArg('value')] string $value,
+        #[LiveArg('instanceId')] string $instanceId,
     ): void {
         $this->builderPage = $this->pageRepository->find($this->page);
-        $order = $this->builderPage->getBlockOrder() ?? [];
+
+        $blockInstance = $this->pageBuilderBlockInstanceRepository->findOneBy([
+            "instanceId" => $instanceId,
+        ]);
+
+        $override = $this->pageBuilderBlockOverridesRepository->findOneBy([
+            "instanceId" => $instanceId,
+            "pageBuilderBlockInstance" => $blockInstance,
+            "fieldKey" => $key,
+            "type" => $type
+        ]);
 
         $order[$index]['overrides'][$key][$itemIndex][$itemKey] = $value;
         $this->builderPage->setBlockOrder($order);

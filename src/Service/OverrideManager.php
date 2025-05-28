@@ -41,6 +41,29 @@ readonly class OverrideManager
     }
 
     /**
+     * @param string $instanceId the instance's id.
+     * @param string|null $key it's identifier at the block level, e.g. "backgroundClasses" or "conditional[true]".
+     * @param string|null $type the string representation of the override type, e.g.: "conditional" or "string".
+     * @return PageBuilderBlockOverrides|null
+     */
+    public function fetchListOverride(string $instanceId, ?string $key, ?string $type): PageBuilderBlockOverrides|null
+    {
+        if (PageBuilderFieldTypes::isListType($type)) {
+            $blockInstance = $this->blockInstanceResolver->getBlockInstanceByInstanceId($instanceId);
+
+            $completeKey = $key . "[" . $type . "]";
+
+            return $this->pageBuilderBlockOverridesRepository->findOneBy(["instanceId" => $instanceId, "pageBuilderBlockInstance" => $blockInstance, "fieldKey" => $completeKey]);
+        } else {
+            $this->logger->warning(
+                "Unsupported block type: {type}. The supported (simple)block types are: {fieldTypes}.",
+                ["type" => $type, 'fieldTypes' => PageBuilderFieldTypes::getSimpleTypes()]
+            );
+            return null;
+        }
+    }
+
+    /**
      * Returns an array of overrides for a conditional PageBuilder block.
      * @param string $instanceId the instance's id.
      * @param string|null $key it's identifier at the block level, e.g. "backgroundClasses" or "conditional[true]".

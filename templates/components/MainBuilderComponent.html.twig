@@ -199,7 +199,7 @@
                     {% if blockInstance is not null %}
                         {% set values = blockInstance.overrides ?? {} %}
                         {% set schema = this.getBlockSchema(blockInstance) %}
-                        {% set settings = schema %}
+
                         <button
                                 type="button"
                                 data-action="live#action live#$render"
@@ -209,7 +209,7 @@
                         >
                             <div class="{% if this.selectedBlockInstanceId == instanceId %}ring-2 ring-indigo-500{% else %}ring-1 ring-gray-300{% endif %} my-1 mx-1 {{ this.getLayoutClasses(instanceId) }}">
                                 {% include '@PageBuilderUserBlocks/' ~ blockInstance.pageBuilderBlock.twigTemplatePath with {
-                                    settings: settings,
+                                    settings: schema,
                                     instanceId: instanceId
                                 } %}
                             </div>

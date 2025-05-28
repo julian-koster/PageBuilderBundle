@@ -13,9 +13,8 @@ class BlockSchemaExtractorTest extends TestCase
     public function testExtractsBasicSchema(): void
     {
         $twig = new Environment(new ArrayLoader());
+        $twig->addExtension(new \JulianKoster\PageBuilderBundle\Twig\Extension\PageBuilderExtension());
         $extractor = new BlockSchemaExtractor($twig);
-
-        #TODO: Instantiate the Twig extension, otherwise the test will most definitely fail :(
 
         $template = <<<TWIG
             {{ pb_block_config('headline', type='string', fallback='Welcome') }}
@@ -40,9 +39,8 @@ class BlockSchemaExtractorTest extends TestCase
     public function testExtractsWithConditionalFallback(): void
     {
         $twig = new Environment(new ArrayLoader());
+        $twig->addExtension(new \JulianKoster\PageBuilderBundle\Twig\Extension\PageBuilderExtension());
         $extractor = new BlockSchemaExtractor($twig);
-
-        #TODO: Instantiate the Twig extension, otherwise the test will most definitely fail :(
 
         $template = <<<TWIG
             {{ pb_block_config('cta_text', type='string', fallback=isLoggedIn ? 'Logout' : 'Login') }}

@@ -1,5 +1,5 @@
 <div class="mb-4">
-    {% set items = values[key]|default(config.fallback|default([])) %}
+    {% set items = values|default(config.fallback|default([])) %}
 
     <div class="space-y-4 mb-4">
         {% for item in items %}
@@ -8,20 +8,17 @@
                     {{ config.label }} {{ loop.index }}
                 </label>
 
-                {% for itemKey, itemConfig in config.itemSchema %}
-                    <input
-                            type="text"
-                            class="block w-full text-sm text-gray-300 bg-gray-900 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                            name="{{ key }}[{{ loop.parent.loop.index0 }}][{{ itemKey }}]"
-                            value="{{ item[itemKey]|default('') }}"
-                            data-type="list"
-                            data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateNestedOverride"
-                            data-key="{{ key }}"
-                            data-instance-id="{{ instanceId }}"
-                            data-item-index="{{ loop.parent.loop.index0 }}"
-                            data-item-key="{{ itemKey }}"
-                    />
-                {% endfor %}
+                <input
+                        type="text"
+                        class="block w-full text-sm text-gray-300 bg-gray-900 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        value="{{ item["value"]|default('') }}"
+                        data-type="list"
+                        data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateNestedOverride"
+                        data-key="{{ config.label }}"
+                        data-instance-id="{{ instanceId }}"
+                        data-item-index="{{ loop.index0 }}"
+                        data-item-key="{{ key }}"
+                />
             </div>
         {% endfor %}
     </div>

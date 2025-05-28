@@ -97,14 +97,15 @@ class PageBuilderBundle extends AbstractBundle
 
         $config = $builder->getExtensionConfig('page_builder')[0] ?? [];
 
-        $resolvedPath = $builder->getParameterBag()->resolveValue($config['template_dir']);
+        if (isset($config['template_dir'])) {
+            $resolvedPath = $builder->getParameterBag()->resolveValue($config['template_dir']);
 
-        # Path to the user defined (created) Twig blocks
-        $builder->prependExtensionConfig('twig', [
-            'paths' => [
-                $resolvedPath => 'PageBuilderUserBlocks',
-            ],
-        ]);
+            $builder->prependExtensionConfig('twig', [
+                'paths' => [
+                    $resolvedPath => 'PageBuilderUserBlocks',
+                ],
+            ]);
+        }
 
         # Currently, this bundle is only tested to work with AssetMapper.
         # TODO: Add support for Webpack (and other ways of including the assets).

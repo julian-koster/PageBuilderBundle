@@ -9,10 +9,21 @@ enum PageBuilderFieldTypes: string
     public CONST array IMAGE_TYPES = ['image'];
 
     public CONST array LINK_TYPES = ['link'];
+    public CONST array LIST_TYPES = ['list'];
 
     public static function isSimpleType(string $type): bool
     {
         return in_array($type, self::SIMPlE_TYPES, true);
+    }
+
+    public static function isListType(string $type): bool
+    {
+        return in_array($type, self::LIST_TYPES, true);
+    }
+
+    public static function getListTypes(string $type): bool
+    {
+        return implode(', ', self::LIST_TYPES);
     }
 
     public static function getSimpleTypes(): string

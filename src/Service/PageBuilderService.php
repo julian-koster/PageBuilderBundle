@@ -31,6 +31,16 @@ readonly class PageBuilderService
                 value: ['value' => $override?->getFieldValue()],
             );
         }
+        elseif(PageBuilderFieldTypes::isListType($type))
+        {
+            $result = $this->overrideManager->fetchListOverride($instanceId, $key, $type);
+            return new PageBuilderOverrideResult(
+                type: $type,
+                key: $key,
+                instanceId: $instanceId,
+                value: $result ?? [],
+            );
+        }
         elseif(PageBuilderFieldTypes::isLinkType($type))
         {
             $result = $this->overrideManager->fetchLinkOverride($instanceId, $key, $type);

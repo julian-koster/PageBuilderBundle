@@ -2,6 +2,7 @@
 
 namespace JulianKoster\PageBuilderBundle\Service;
 
+use Psr\Log\LoggerInterface;
 use Twig\Environment;
 use Twig\Error\SyntaxError;
 use Twig\Node\Expression\ArrayExpression;
@@ -13,7 +14,7 @@ use Twig\Node\Expression\ConstantExpression;
 
 readonly class BlockSchemaExtractor
 {
-    public function __construct(private Environment $twig)
+    public function __construct(private Environment $twig, private LoggerInterface $logger)
     {
     }
 
@@ -52,6 +53,11 @@ readonly class BlockSchemaExtractor
                     }
                 }
 
+                if ($args->hasNode('subTypes')) {
+                    $subTypeWrapper = $args->getNode('subTypes');
+                    $subStructureArray = $this->getStructuredSubTypeArray($subTypeWrapper);
+                }
+
                 if ($args->hasNode('fallback')) {
                     $fallbackWrapper = $args->getNode('fallback');
 
@@ -69,6 +75,7 @@ readonly class BlockSchemaExtractor
                         'type' => $type,
                         'fallback' => $fallback,
                         'label' => ucwords(str_replace(['_', '-'], ' ', $key)),
+                        'structuredSubTypeArray' => $subStructureArray ?? [],
                     ];
                 }
             }
@@ -83,6 +90,37 @@ readonly class BlockSchemaExtractor
         $walker($parsed);
 
         return array_values($schema);
+    }
+
+    private function getStructuredSubTypeArray(Node $node): ?array
+    {
+        if(!$node instanceof ArrayExpression)
+        {
+            return null;
+        }
+
+        $items = [];
+
+        $elements = $node->getKeyValuePairs();
+
+        foreach ($elements as $element) {
+            $row = [];
+
+            if ($element['value'] instanceof ArrayExpression) {
+                foreach ($element['value']->getKeyValuePairs() as $pair) {
+                    $subKeyNode = $pair['key'];
+                    $subValueNode = $pair['value'];
+
+                    if ($subKeyNode instanceof ConstantExpression && $subValueNode instanceof ConstantExpression) {
+                        $row[$subKeyNode->getAttribute('value')] = $subValueNode->getAttribute('value');
+                    }
+                }
+            }
+
+            $items[] = $row;
+        }
+
+        return $items;
     }
 
     private function getStructuredFallback(Node $node): array

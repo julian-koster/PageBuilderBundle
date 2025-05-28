@@ -77,9 +77,9 @@ export default class extends Controller {
     }
 
     updateNestedOverride(event) {
-        const type = event.currentTarget.dataset.type;
         const key = event.currentTarget.dataset.key;
         const instanceId = event.currentTarget.dataset.instanceId;
+        const type = event.currentTarget.dataset.type;
 
         if (!key) {
             console.warn('Skipping override update due to empty key');
@@ -91,15 +91,15 @@ export default class extends Controller {
             return;
         }
 
-        const itemInstanceId = event.currentTarget.dataset.itemInstanceId;
         const itemKey = event.currentTarget.dataset.itemKey;
         const value = event.currentTarget.value;
 
         this.component.action('updateNestedOverride', {
             key: key+'['+type+']',
-            itemInstanceId: itemInstanceId,
             itemKey: itemKey,
             value: value,
+            instanceId: instanceId,
+            type: type,
         });
     }
 

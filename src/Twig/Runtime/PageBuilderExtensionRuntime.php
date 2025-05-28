@@ -6,6 +6,7 @@ use JulianKoster\PageBuilderBundle\Service\FieldContextBuilder;
 use JulianKoster\PageBuilderBundle\Service\PageBuilderService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
@@ -17,25 +18,24 @@ use Twig\Extension\RuntimeExtensionInterface;
 readonly class PageBuilderExtensionRuntime implements RuntimeExtensionInterface
 {
     private ExpressionLanguage $expressionLanguage;
-    private string $publicUploadDir;
 
     public function __construct(
         private LoggerInterface                                  $logger,
         private PageBuilderService                               $pageBuilderService,
         private Environment                                      $twig,
         private FieldContextBuilder                              $fieldContextBuilder,
-        #[Autowire(param: 'public_upload_download_dir') ] string $publicUploadDir,
-        private UrlGeneratorInterface $urlGenerator,
+        private UrlGeneratorInterface                            $urlGenerator,
+        private ParameterBagInterface                            $parameterBag,
     )
     {
         $this->expressionLanguage = new ExpressionLanguage();
-        $this->publicUploadDir = $publicUploadDir;
     }
 
     public function configureBlockSetting(
         array $context,
         string $name = null,
         ?string $type = 'string',
+        ?array $subTypes = [],
         mixed $fallback = null
     ): mixed {
         $instanceId = $context["instanceId"] ?? null;
@@ -68,7 +68,13 @@ readonly class PageBuilderExtensionRuntime implements RuntimeExtensionInterface
         }
 
         if ($overrideResult->type === 'image') {
-            return $this->publicUploadDir . $overrideResult->get('image');
+            if ($this->parameterBag->has('page_builder.image_dir')) {
+                $imageDir = $this->parameterBag->get('page_builder.image_dir');
+                return $imageDir . $overrideResult->get('image');
+            }
+            else {
+                $this->logger->warning('Tried to return the image path for block-instance with id: ' . $instanceId . ' but could not resolve the path for image: ' . $overrideResult->get('image'));
+            }
         }
 
         if ($overrideResult->type === 'conditional') {
