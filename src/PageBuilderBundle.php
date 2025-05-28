@@ -11,6 +11,10 @@ use Symfony\Component\AssetMapper\AssetMapperInterface;
 
 class PageBuilderBundle extends AbstractBundle
 {
+    public function __construct(private readonly ConfigValidator $configValidator)
+    {
+    }
+
     public function configure(DefinitionConfigurator $definition): void
     {
         $definition->rootNode()
@@ -63,7 +67,7 @@ class PageBuilderBundle extends AbstractBundle
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        ConfigValidator::validate($config, $builder);
+        $this->configValidator->validate($config, $builder);
 
         $container->parameters()
             ->set('page_builder.template_dir', $config['template_dir'])
