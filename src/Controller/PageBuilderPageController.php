@@ -70,7 +70,7 @@ final class PageBuilderPageController extends AbstractController
 
                 /** @var PageBuilderPage $page */
                 $page = $form->getData();
-                $page->setStatus(PageBuilderPageStatus::DRAFT);
+                $page->setStatus(PageBuilderPageStatus::DRAFT->value);
 
                 $entityManager->persist($page);
 
