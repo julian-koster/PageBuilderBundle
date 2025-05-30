@@ -12,7 +12,7 @@
                 data-instance-id="{{ this.instanceId }}"
                 data-juliankoster--pagebuilderbundle--page-builder-target="path"
                 data-action="change->juliankoster--pagebuilderbundle--page-builder#updateLink"
-                class="block w-full p-2.5 text-sm text-white bg-gray-800 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                class="block w-full p-2.5 text-sm text-white bg-gray-800 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 {{ this.extraClass }}"
         >
             {% for route in this.userDefinedRoutes %}
                 <option

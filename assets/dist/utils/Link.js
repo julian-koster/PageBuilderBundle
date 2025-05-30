@@ -16,45 +16,6 @@ export class Link {
         }
     }
 
-    connect() {
-        this.linkContainers.forEach((container) => {
-            const inputs = this.getInputs(container)
-            const activeKey = this.controller.contextValue.context?.activeKey;
-            const activeValue = this.controller.contextValue.context?.activeValue;
-            const selectedType = activeKey?.match(/\[(.*?)\]/)?.[1];
-
-            if (selectedType && this.typePossibilities().includes(selectedType)) {
-                inputs.typeSelect.value = selectedType;
-                this.switchTypeFor(container, selectedType);
-
-                requestAnimationFrame(() => {
-                    const trySet = () => {
-                        const updatedInputs = this.getInputs(container);
-
-                        if (
-                            (selectedType === "url" && updatedInputs.urlInput) ||
-                            (selectedType === "path" && updatedInputs.pathInput) ||
-                            (selectedType === "email" && updatedInputs.emailInput)
-                        ) {
-                            if (selectedType === "url") updatedInputs.urlInput.value = activeValue;
-                            if (selectedType === "path") updatedInputs.pathInput.value = activeValue;
-                            if (selectedType === "email") updatedInputs.emailInput.value = activeValue;
-                        } else {
-                            // Try again shortly
-                            setTimeout(trySet, 50);
-                        }
-                    };
-
-                    trySet();
-                });
-            }
-        });
-    }
-
-    typePossibilities() {
-        return ['url', 'path', 'email'];
-    }
-
     updateLink(event) {
         const { dataset } = event.target;
         const value = event.target.value;
@@ -85,10 +46,5 @@ export class Link {
         inputs.emailInput.classList.toggle('hidden', type !== "email");
         inputs.urlInput.classList.toggle('hidden', type !== "url");
         inputs.pathInput.classList.toggle('hidden', type !== "path");
-
-        // Optional: Clear other values
-        if (type === "path") inputs.urlInput.value = inputs.emailInput.value = "";
-        if (type === "url") inputs.pathInput.value = inputs.emailInput.value = "";
-        if (type === "email") inputs.pathInput.value = inputs.urlInput.value = "";
     }
 }

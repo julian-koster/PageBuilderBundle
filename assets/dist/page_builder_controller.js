@@ -24,7 +24,6 @@ export default class extends Controller {
         this.removeClassesTomSelect.cleanupTomSelect()
         this.dropdowns = []
         this.link = new Link(this)
-        this.link.connect()
 
         this.dropdownTargets.forEach((dropdownEl) => {
             const button = dropdownEl.querySelector('button')

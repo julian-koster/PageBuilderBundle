@@ -8,7 +8,17 @@
             Link type
         </label>
 
-        {{ dump(context.context) }}
+        {% macro hideInactiveField(fieldType, context) %}
+            {% if fieldType != context.context.activeLinkType %}
+                hidden
+            {% endif %}
+        {% endmacro %}
+
+        {% macro setValueOnActiveField(fieldType, context) %}
+            {% if fieldType is same as context.context.activeLinkType %}
+                {{ context.context.activeValue|default(null) }}
+            {% endif %}
+        {% endmacro %}
 
         <select name="linkType"
                 id="linkType"
@@ -17,37 +27,38 @@
                 data-juliankoster--pagebuilderbundle--page-builder-target="type"
                 class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 text-xs focus:ring-primary-500 focus:border-primary-500">
             <option value="">Select an option...</option>
-            <option value="path">Internal route</option>
-            <option value="url" selected>URL</option>
-            <option value="email">Email</option>
+            <option value="path" {% if context.context.activeLinkType is same as "path" %}selected{% endif %}>Internal route</option>
+            <option value="url" {% if context.context.activeLinkType is same as "url" %}selected{% endif %}>URL</option>
+            <option value="email" {% if context.context.activeLinkType is same as "email" %}selected{% endif %}>Email</option>
         </select>
 
         <twig:LinkTypeRouteAutocompleteComponent
                 label="{{ config.label }}"
                 data-key="{{ key }}"
-                value="{{ context.context.activeValue|default(null) }}"
+                value="{{ _self.setValueOnActiveField("path", context) }}"
+                extraClass="{{ _self.hideInactiveField("path", context) }}"
                 instanceId="{{ instanceId }}" />
 
         <input type="url" name="urlValue"
                data-index="url"
                data-type="url"
-               value="{{ context.context.activeValue|default(null) }}"
+               value="{{ _self.setValueOnActiveField("url", context) }}"
                data-key="{{ key }}"
                data-juliankoster--pagebuilderbundle--page-builder-target="url"
                data-action="change->juliankoster--pagebuilderbundle--page-builder#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="https://example.com"
-               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500" />
+               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500 {{ _self.hideInactiveField("url", context) }}" />
 
         <input type="email" name="emailValue"
                data-index="email"
                data-type="email"
-               value="{{ context.context.activeValue|default(null) }}"
+               value="{{ _self.setValueOnActiveField("email", context) }}"
                data-key="{{ key }}"
                data-juliankoster--pagebuilderbundle--page-builder-target="email"
                data-action="change->juliankoster--pagebuilderbundle--page-builder#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="info@example.com"
-               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500" />
+               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500 {{ _self.hideInactiveField("email", context) }}" />
     </div>
 </div>
