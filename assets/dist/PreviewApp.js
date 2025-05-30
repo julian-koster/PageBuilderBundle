@@ -1,19 +1,9 @@
-import { Controller } from '@hotwired/stimulus';
-import { getComponent } from '@symfony/ux-live-component';
-
-export default class extends Controller {
-    static values = {
-        key: String,
-        instanceId: String,
-    }
-
-    async connect()
-    {
-        this.component = await getComponent(this.element);
+export class PreviewApp {
+    constructor(controller) {
+        this.controller = controller
     }
 
     updateLayoutConfig(event) {
-        console.log(event)
         let value, key, instanceId;
 
         if(event.detail) {
@@ -40,7 +30,7 @@ export default class extends Controller {
             console.warn('Cannot update blockInstance layout config as the instanceId is empty.');
         }
 
-        this.component.action('updateLayoutConfig', {
+        this.controller.component.action('updateLayoutConfig', {
             key: key,
             value: value,
             instanceId: instanceId,
@@ -68,7 +58,7 @@ export default class extends Controller {
             return;
         }
 
-        this.component.action('updateOverride', {
+        this.controller.component.action('updateOverride', {
             instanceId: instanceId,
             key: key+'['+type+']',
             value: value,
@@ -94,7 +84,7 @@ export default class extends Controller {
         const itemKey = event.currentTarget.dataset.itemKey;
         const value = event.currentTarget.value;
 
-        this.component.action('updateNestedOverride', {
+        this.controller.component.action('updateNestedOverride', {
             key: key+'['+type+']',
             itemKey: itemKey,
             value: value,
@@ -120,7 +110,7 @@ export default class extends Controller {
             return;
         }
 
-        this.component.action('replaceOverride', {
+        this.controller.component.action('replaceOverride', {
             instanceId: instanceId,
             key: key+'['+type+']',
             value: value,
@@ -132,9 +122,10 @@ export default class extends Controller {
         const key = event.currentTarget.dataset.key;
         const instanceId = event.currentTarget.dataset.instanceId;
 
-        this.component.action('addListItem', {
+        this.controller.component.action('addListItem', {
             instanceId: instanceId,
             key: key
         });
     }
 }
+

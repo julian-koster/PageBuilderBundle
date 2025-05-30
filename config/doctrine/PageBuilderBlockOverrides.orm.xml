@@ -17,6 +17,7 @@
         <field name="fieldKey" type="string" length="255" nullable="false"/>
         <field name="fieldValue" type="text" nullable="false"/>
         <field name="type" type="string" length="255" nullable="false"/>
+        <field name="position" type="integer" length="10" nullable="true"/>
 
         <many-to-one
                 field="pageBuilderBlockInstance"

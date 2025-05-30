@@ -1,16 +1,20 @@
 <div class="mb-4"
-        {{ stimulus_controller('@juliankoster/pagebuilderbundle/page-builder-preview-link') }}
-     data-juliankoster--pagebuilderbundle--page-builder-preview-link-context-value="{{ context|json_encode }}">
+     data-juliankoster--pagebuilderbundle--page-builder-context-value="{{ context|json_encode }}"
+     data-juliankoster--pagebuilderbundle--page-builder-target="linkContainer"
+>
     <div class="space-y-3 text-sm text-gray-300">
 
         <label for="linkType" class="block text-xs font-medium text-gray-400">
             Link type
         </label>
 
+        {{ dump(context.context) }}
+
         <select name="linkType"
                 id="linkType"
-                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#switchType"
-                data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="type"
+                data-index="type"
+                data-action="change->juliankoster--pagebuilderbundle--page-builder#switchType"
+                data-juliankoster--pagebuilderbundle--page-builder-target="type"
                 class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 text-xs focus:ring-primary-500 focus:border-primary-500">
             <option value="">Select an option...</option>
             <option value="path">Internal route</option>
@@ -20,27 +24,30 @@
 
         <twig:LinkTypeRouteAutocompleteComponent
                 label="{{ config.label }}"
+                data-key="{{ key }}"
                 value="{{ context.context.activeValue|default(null) }}"
                 instanceId="{{ instanceId }}" />
 
         <input type="url" name="urlValue"
+               data-index="url"
                data-type="url"
                value="{{ context.context.activeValue|default(null) }}"
-               data-key="{{ config.label }}"
-               data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="url"
-               data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
+               data-key="{{ key }}"
+               data-juliankoster--pagebuilderbundle--page-builder-target="url"
+               data-action="change->juliankoster--pagebuilderbundle--page-builder#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="https://example.com"
-               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500 hidden" />
+               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500" />
 
         <input type="email" name="emailValue"
+               data-index="email"
                data-type="email"
                value="{{ context.context.activeValue|default(null) }}"
-               data-key="{{ config.label }}"
-               data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="email"
-               data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
+               data-key="{{ key }}"
+               data-juliankoster--pagebuilderbundle--page-builder-target="email"
+               data-action="change->juliankoster--pagebuilderbundle--page-builder#updateLink"
                data-instance-id="{{ instanceId }}"
                placeholder="info@example.com"
-               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500 hidden" />
+               class="block w-full rounded-lg border border-gray-600 bg-gray-800 text-gray-300 placeholder-gray-500 text-xs focus:ring-primary-500 focus:border-primary-500" />
     </div>
 </div>

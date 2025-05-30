@@ -10,7 +10,7 @@
                 name="{{ key }}"
                 value="{{ value.get("value")|default(config.fallback.value|default('')) }}"
                 class="block w-full text-sm text-gray-300 bg-gray-900 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateOverride"
+                data-action="change->juliankoster--pagebuilderbundle--page-builder#updateOverride"
                 data-key="{{ key }}"
                 data-type="{{ config.type }}"
                 data-instance-id="{{ instanceId }}"

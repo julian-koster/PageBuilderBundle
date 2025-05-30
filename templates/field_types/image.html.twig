@@ -1,4 +1,4 @@
-<div class="mb-4" {{ stimulus_controller('@juliankoster/pagebuilderbundle/page-builder-file') }}>
+<div class="mb-4">
     <label class="block text-sm font-medium text-gray-300 mb-2">
         {{ config.label }}
     </label>
@@ -19,14 +19,14 @@
                    hover:file:bg-gray-500
                    dark:file:bg-gray-600 dark:file:text-white dark:hover:file:bg-gray-500
                    bg-gray-800 border border-gray-700 rounded-lg"
-                data-action="change->juliankoster--pagebuilderbundle--page-builder-file#uploadFile"
+                data-action="change->juliankoster--pagebuilderbundle--page-builder#uploadFile"
                 data-url="{{ absolute_url(path('juliankoster_pagebuilder_mainbuilder_image_upload')) }}"
                 data-type="imgSrc"
                 data-instance-id="{{ instanceId }}"
                 data-key="{{ config.label }}"
                 data-max-files="1"
                 accept="image/*"
-                data-juliankoster--pagebuilderbundle--page-builder-file-target="uploadField"
+                data-juliankoster--pagebuilderbundle--page-builder-target="uploadField"
         />
     {% endif %}
 </div>

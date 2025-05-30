@@ -13,37 +13,10 @@
   ],
   "symfony": {
     "controllers": {
-      "dropdown": {
-        "main":     "dist/dropdown_controller.js",
+      "page-builder": {
+        "main":     "dist/page_builder_controller.js",
         "enabled":  true,
         "fetch":    "eager",
-        "webpackMode": "eager"
-      },
-      "page-builder-file": {
-        "main":     "dist/page_builder_file_controller.js",
-        "enabled":  true,
-        "fetch":    "eager",
-        "webpackMode": "eager"
-      },
-      "page-builder-preview": {
-        "main":     "dist/page_builder_preview_controller.js",
-        "enabled":  true,
-        "fetch":    "eager",
-        "webpackMode": "eager",
-        "autoimport": {
-          "dist/ts_dropdown_tailwind.css": true
-        }
-      },
-      "page-builder-preview-link": {
-        "main":     "dist/page_builder_preview_link_controller.js",
-        "enabled":  true,
-        "fetch":    "eager",
-        "webpackMode": "eager"
-      },
-      "remove-classes-tomselect": {
-        "main": "dist/remove_classes_tomselect_controller.js",
-        "enabled": true,
-        "fetch": "eager",
         "webpackMode": "eager"
       }
     },

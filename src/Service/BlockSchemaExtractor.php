@@ -106,15 +106,30 @@ readonly class BlockSchemaExtractor
         foreach ($elements as $element) {
             $row = [];
 
+            $keyValue = null;
+
             if ($element['value'] instanceof ArrayExpression) {
                 foreach ($element['value']->getKeyValuePairs() as $pair) {
                     $subKeyNode = $pair['key'];
                     $subValueNode = $pair['value'];
 
                     if ($subKeyNode instanceof ConstantExpression && $subValueNode instanceof ConstantExpression) {
-                        $row[$subKeyNode->getAttribute('value')] = $subValueNode->getAttribute('value');
+                        $subKey = $subKeyNode->getAttribute('value');
+                        $subValue = $subValueNode->getAttribute('value');
+
+                        $row[$subKey] = $subValue;
+
+                        if($subKey === "key")
+                        {
+                            $keyValue = $subValue;
+                        }
                     }
                 }
+            }
+
+            if($keyValue !== null)
+            {
+                $row['label'] = $keyValue;
             }
 
             $items[] = $row;

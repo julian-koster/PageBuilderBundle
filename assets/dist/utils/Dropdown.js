@@ -1,10 +1,9 @@
-import { Controller } from '@hotwired/stimulus'
-
-export default class extends Controller {
-    static targets = ['menu']
-
-    connect() {
+export class Dropdown {
+    constructor(element, menu) {
+        this.element = element
+        this.menu = menu
         this.handleOutsideClick = this.handleOutsideClick.bind(this)
+        this.handleEscape = this.handleEscape.bind(this)
     }
 
     toggle(event) {
@@ -13,28 +12,28 @@ export default class extends Controller {
     }
 
     open() {
-        this.menuTarget.classList.remove('hidden')
-        this.menuTarget.classList.add('opacity-0', 'transition-opacity', 'duration-150', 'ease-out')
+        this.menu.classList.remove('hidden')
+        this.menu.classList.add('opacity-0', 'transition-opacity', 'duration-150', 'ease-out')
         requestAnimationFrame(() => {
-            this.menuTarget.classList.remove('opacity-0')
-            this.menuTarget.classList.add('opacity-100')
+            this.menu.classList.remove('opacity-0')
+            this.menu.classList.add('opacity-100')
         })
         document.addEventListener('click', this.handleOutsideClick)
         document.addEventListener('keydown', this.handleEscape)
     }
 
     close() {
-        this.menuTarget.classList.remove('opacity-100')
-        this.menuTarget.classList.add('opacity-0')
+        this.menu.classList.remove('opacity-100')
+        this.menu.classList.add('opacity-0')
         setTimeout(() => {
-            this.menuTarget.classList.add('hidden')
+            this.menu.classList.add('hidden')
         }, 150)
         document.removeEventListener('click', this.handleOutsideClick)
         document.removeEventListener('keydown', this.handleEscape)
     }
 
     isOpen() {
-        return !this.menuTarget.classList.contains('hidden')
+        return !this.menu.classList.contains('hidden')
     }
 
     handleOutsideClick(e) {
@@ -43,7 +42,7 @@ export default class extends Controller {
         }
     }
 
-    handleEscape = (e) => {
+    handleEscape(e) {
         if (e.key === 'Escape') {
             this.close()
         }

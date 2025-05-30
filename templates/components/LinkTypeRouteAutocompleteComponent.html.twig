@@ -1,17 +1,17 @@
-<div {{ attributes }} class="hidden" data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="path">
+<div {{ attributes }} data-juliankoster--pagebuilderbundle--page-builder-target="path">
     <div>
         <label for="{{ this.label }}" class="block mb-2 text-sm font-medium text-gray-300">
             Select route
         </label>
         <select
-                {{ stimulus_controller('symfony/ux-autocomplete/autocomplete juliankoster--pagebuilder--remove-classes-tomselect') }}
                 id="{{ this.label }}"
                 name="pathValue"
-                data-key="{{ this.label }}"
+                data-key="{{ this.dataKey }}"
                 data-type="path"
+                data-index="path"
                 data-instance-id="{{ this.instanceId }}"
-                data-juliankoster--pagebuilderbundle--page-builder-preview-link-target="path"
-                data-action="change->juliankoster--pagebuilderbundle--page-builder-preview-link#updateLink"
+                data-juliankoster--pagebuilderbundle--page-builder-target="path"
+                data-action="change->juliankoster--pagebuilderbundle--page-builder#updateLink"
                 class="block w-full p-2.5 text-sm text-white bg-gray-800 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
         >
             {% for route in this.userDefinedRoutes %}

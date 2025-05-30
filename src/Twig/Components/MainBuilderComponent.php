@@ -340,19 +340,19 @@ final class MainBuilderComponent
         $this->entityManager->flush();
     }
 
-    #[LiveAction]
-    public function addListItem(
-        #[LiveArg] int $index,
-        #[LiveArg] string $key
-    ): void {
-        $this->builderPage = $this->pageRepository->find($this->page);
-        $order = $this->builderPage->getBlockOrder() ?? [];
-        $order[$index]['overrides'][$key][] = []; // add empty object
-        $this->builderPage->setBlockOrder($order);
-
-        $this->entityManager->persist($this->builderPage);
-        $this->entityManager->flush();
-    }
+//    #[LiveAction]
+//    public function addListItem(
+//        #[LiveArg('position')] int $position,
+//        #[LiveArg('instanceId')] string $instanceId,
+//        #[LiveArg('key')] string $key
+//    ): void {
+//        $this->builderPage = $this->pageRepository->find($this->page);
+//
+//        $this->builderPage->setBlockOrder($order);
+//
+//        $this->entityManager->persist($this->builderPage);
+//        $this->entityManager->flush();
+//    }
 
     #[LiveAction]
     public function deleteBlockFromPage(

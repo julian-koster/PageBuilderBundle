@@ -1,34 +1,21 @@
-<div class="mb-4">
-    {% set items = values|default(config.fallback|default([])) %}
+<div class="mb-4" {{ stimulus_controller('juliankoster--pagebuilderbundle--page-builder-preview-list') }}>
+    {% if config.type in ['list'] %}
 
-    <div class="space-y-4 mb-4">
-        {% for item in items %}
-            <div class="rounded-lg bg-gray-800 border border-gray-700 p-4 space-y-2">
-                <label class="block text-sm font-medium text-gray-300">
-                    {{ config.label }} {{ loop.index }}
-                </label>
+        {% set listIndex = listIndex|default(0) %}
 
-                <input
-                        type="text"
-                        class="block w-full text-sm text-gray-300 bg-gray-900 border border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                        value="{{ item["value"]|default('') }}"
-                        data-type="list"
-                        data-action="change->juliankoster--pagebuilderbundle--page-builder-preview#updateNestedOverride"
-                        data-key="{{ config.label }}"
-                        data-instance-id="{{ instanceId }}"
-                        data-item-index="{{ loop.index0 }}"
-                        data-item-key="{{ key }}"
-                />
-            </div>
+        {% for fieldType in config.structuredSubTypeArray %}
+            {% set key = config.label ~ "[" ~ listIndex ~ "]" ~ "[" ~ fieldType.key ~ "]" %}
+
+            {{ pb_block_render_inputs(key, fieldType, instanceId)|raw }}
         {% endfor %}
-    </div>
 
-    <button
-            type="button"
-            class="px-3 py-2 text-xs font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            data-action="juliankoster--pagebuilderbundle--page-builder-preview#addListItem"
-            data-key="{{ key }}"
-    >
-        + Add item
-    </button>
+        <button
+                type="button"
+                class="px-3 py-2 text-xs font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                data-action="juliankoster--pagebuilderbundle--page-builder-preview#addListItem"
+                data-key="{{ key }}"
+        >
+            + Add item
+        </button>
+    {% endif %}
 </div>

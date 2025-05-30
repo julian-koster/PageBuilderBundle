@@ -5,7 +5,6 @@ namespace JulianKoster\PageBuilderBundle\Twig\Runtime;
 use JulianKoster\PageBuilderBundle\Service\FieldContextBuilder;
 use JulianKoster\PageBuilderBundle\Service\PageBuilderService;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -70,7 +69,7 @@ readonly class PageBuilderExtensionRuntime implements RuntimeExtensionInterface
         if ($overrideResult->type === 'image') {
             if ($this->parameterBag->has('page_builder.image_dir')) {
                 $imageDir = $this->parameterBag->get('page_builder.image_dir');
-                return $imageDir . $overrideResult->get('image');
+                return $imageDir . DIRECTORY_SEPARATOR . $overrideResult->get('image');
             }
             else {
                 $this->logger->warning('Tried to return the image path for block-instance with id: ' . $instanceId . ' but could not resolve the path for image: ' . $overrideResult->get('image'));
@@ -97,10 +96,12 @@ readonly class PageBuilderExtensionRuntime implements RuntimeExtensionInterface
      * @throws SyntaxError
      * @throws LoaderError
      */
-    public function renderBlockInputs(string $key, array $config, mixed $value, string $instanceId): string
+    public function renderBlockInputs(string $key, array $config, string $instanceId): string
     {
         $template = "@PageBuilder/field_types/{$config['type']}.html.twig";
         $fieldContext = $this->fieldContextBuilder->getFieldContext($key, $config["type"], $instanceId) ?? null;
+
+        $value = $this->pageBuilderService->getOverrideValues($instanceId, $key, $config["type"]) ?? null;
 
         return $this->twig->render($template, [
             'key' => $key,

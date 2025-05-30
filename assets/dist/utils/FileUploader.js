@@ -1,35 +1,35 @@
-import { Controller } from '@hotwired/stimulus';
 import $ from 'jquery';
 
-export default class extends Controller {
-    static targets = [
-        'uploadField',
-    ];
+export class FileUploader {
+    constructor(controller) {
+        this.controller = controller
+    }
 
-    async uploadFile(event)
-    {
-        const file = event.target.files;
-        const uploadUrl = event.currentTarget.dataset.url;
-        const maxFiles = event.currentTarget.dataset.maxFiles;
-        const index = event.currentTarget.dataset.index;
-        const key = event.currentTarget.dataset.key;
-        const instanceId = event.currentTarget.dataset.instanceId;
-        const type = event.currentTarget.dataset.type;
+    async uploadFile(event) {
+        const { dataset } = event.target
+        const files = event.target.files
+        const uploadField = this.controller.uploadFieldTarget;
+        const uploadUrl = dataset.url
+        const maxFiles = dataset.maxFiles;
+        const index = dataset.index;
+        const key = dataset.key;
+        const instanceId = dataset.instanceId;
+        const type = dataset.type;
 
-        if(!file)
-        {
-            alert('No file found');
-            return;
+
+        if (!files.length) {
+            alert('No files found')
+            return
         }
 
-        if(file.length > maxFiles ?? 1)
+        if(files.length > maxFiles ?? 1)
         {
             alert('Exceeded total allowable number of files. Maximum is ' + maxFiles);
         }
 
-        let formData = new FormData();
-        for (const file of event.target.files) {
-            formData.append('files[]', file);
+        const formData = new FormData()
+        for (const file of files) {
+            formData.append('files[]', file)
         }
 
         try {
@@ -47,7 +47,7 @@ export default class extends Controller {
                 return;
             }
 
-            this.dispatch("replaceOverride", {
+            this.controller.dispatch("replaceOverride", {
                 prefix: false,
                 target: window,
                 detail: {
@@ -58,6 +58,17 @@ export default class extends Controller {
                     key: key,
                 }
             });
+
+            window.dispatchEvent(new CustomEvent('replaceOverride', {
+                detail: {
+                    instanceId,
+                    type: 'image',
+                    value: response["uploadedFilename"],
+                    index,
+                    key,
+                },
+                bubbles: true,
+            }));
 
             window.dispatchEvent(new CustomEvent('notification:create', {
                 detail: {

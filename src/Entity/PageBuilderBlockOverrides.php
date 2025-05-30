@@ -14,6 +14,8 @@ class PageBuilderBlockOverrides
 
     private ?string $type = null;
 
+    private ?int $position = null;
+
     private ?PageBuilderBlockInstance $pageBuilderBlockInstance = null;
 
     public function getId(): ?int
@@ -79,5 +81,15 @@ class PageBuilderBlockOverrides
         $this->pageBuilderBlockInstance = $pageBuilderBlockInstance;
 
         return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): void
+    {
+        $this->position = $position;
     }
 }

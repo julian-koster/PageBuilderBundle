@@ -22,6 +22,9 @@ class LinkTypeRouteAutocompleteComponent extends AbstractController
     #[LiveProp]
     public ?string $instanceId = null;
 
+    #[LiveProp]
+    public ?string $dataKey = null;
+
     public function __construct(private readonly ParameterBagInterface $parameterBag)
     {
     }

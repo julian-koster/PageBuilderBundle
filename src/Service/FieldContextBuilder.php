@@ -2,6 +2,7 @@
 
 namespace JulianKoster\PageBuilderBundle\Service;
 
+use JulianKoster\PageBuilderBundle\Helper\FieldContextHelper;
 use JulianKoster\PageBuilderBundle\Repository\PageBuilderBlockOverridesRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Psr\Log\LoggerInterface;
@@ -16,6 +17,7 @@ readonly class FieldContextBuilder
         private BlockInstanceResolver $blockInstanceResolver,
         private LoggerInterface $logger,
         private PageBuilderBlockOverridesRepository $pageBuilderBlockOverridesRepository,
+        private FieldContextHelper $fieldContextHelper,
     )
     {
     }
@@ -64,6 +66,8 @@ readonly class FieldContextBuilder
             return [];
         }
 
-        return ["activeKey" => $activeKey->getFieldKey(), "activeValue" => $activeKey->getFieldValue()];
+        $activeLinkType = $this->fieldContextHelper->detectLinkType($activeKey);
+
+        return ["activeKey" => $activeKey->getFieldKey(), "activeValue" => $activeKey->getFieldValue(), "activeLinkType" => $activeLinkType];
     }
 }
